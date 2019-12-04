@@ -7,16 +7,16 @@ var z = 0;
 let xoff = 0.0;
 
 function setup() {
-  // Canvas setup
-  canvas = createCanvas(windowWidth, windowHeight);
- // canvas.parent("p5Container");
-  // Detect screen density (retina)
-  var density = displayDensity();
-
-  pixelDensity(density);
-  // Colors and drawing modes
-  background(200);
-  smooth();
+ //  // Canvas setup
+ //  canvas = createCanvas(windowWidth, windowHeight);
+ // // canvas.parent("p5Container");
+ //  // Detect screen density (retina)
+ //  var density = displayDensity();
+ //
+ //  pixelDensity(density);
+ //  // Colors and drawing modes
+ //  background(200);
+ //  smooth();
    // Canvas full page
   createCanvas(windowWidth, windowHeight);
   // Default screen density (for retina)
