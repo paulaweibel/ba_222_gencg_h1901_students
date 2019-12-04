@@ -3,10 +3,37 @@ let direction;
 let stepSize, rideDuration, startTime, t;
 let objects;
 
+function setup() {
+  cursor(HAND);
+  particleStepMax = 50;
+  initParticles();
+  createCanvas(windowWidth, windowHeight);
+}
+
+function draw() {
+  background(250,180,0,20);
+  stroke(0)
+  strokeWeight(1)
+
+  // Time since the sketch started
+  let t = (new Date() - startTime) / 1000;
+  let stepSize = animate(t, 0, 2, rideDuration, 2.5)
+console.log(rideDuration)
+
+stepSize = (direction === 'up') ? +stepSize : -stepSize;
+
+  particles.forEach(p => {
+    p.move();
+    p.draw();
+  });
+}
+
+
+
 function Particle() {
   this.pos = createVector(random(windowWidth), random(windowHeight));
   this.tail = [];
-  this.tailLength = 7;
+  this.tailLength = 5;
 }
 
 Particle.prototype.move = function() {
@@ -25,15 +52,6 @@ Particle.prototype.draw = function() {
   });
 }
 
-var particles;
-var particleStepMax;
-
-function setup() {
-  // Time since the sketch started
-  let t = (new Date() - startTime) / 1000;
-  stepSize = animate(t, 0, 2, rideDuration, 2.5)
-  console.log(`${t}, ${stepSize}, ${rideDuration}`)
-}
 
 function keyPressed() {
   if (keyCode === 32) setup() // 32 = Space
@@ -46,42 +64,7 @@ function keyPressed() {
 
 function initParticles() {
   particles = [];
-  for(var i = 0; i < 40; i++) {
-    particles.push(new Particle());
-  }
-}
-
-function setup() {
-  cursor(HAND);
-  particleStepMax = 40;
-  initParticles();
-  createCanvas(windowWidth, windowHeight);
-}
-
-function draw() {
-  background(0,20);
-  stroke(250,180,0)
-  strokeWeight(10)
-
-  // Time since the sketch started
-  let t = (new Date() - startTime) / 1000;
-  // stepSize = animate(t, 0, 2, rideDuration, 2.5)
-  // console.log(`${t}, ${stepSize}, ${rideDuration}`)
-  //
-  // // stepSize = (direction === 'up') ? +stepSize : -stepSize;
-  // particles.forEach(p => {
-  //   p.move();
-  //   p.draw();
-  // });
-  particles.forEach(p => {
-    p.move();
-    p.draw();
-  });
-}
-
-function initParticles() {
-  particles = [];
-  for(var i = 0; i < 10; i++) {
+  for(var i = 0; i < 1000; i++) {
     particles.push(new Particle());
   }
 }

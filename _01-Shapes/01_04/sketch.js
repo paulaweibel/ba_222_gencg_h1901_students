@@ -28,17 +28,14 @@ function draw() {
   // Time since the sketch started
   let t = (new Date() - startTime) / 1000;
   stepSize = animate(t, 0, 2, rideDuration, 2.5)
-  // console.log(`${t}, ${stepSize}, ${rideDuration}`)
+  console.log(t)
 
   stepSize = (direction === 'up') ? +stepSize : -stepSize;
-
-  for (const object of objects) {
-
-    object[1] += stepSize;
-    fill(map(object[1], 0, height, 0, 255))
-    ellipse(object[0], object[1], 100, 100);
-
-  }
+  // for (const object of objects) {
+  // object[1] += stepSize;
+  // fill(map(object[1], 0, height, 0, 255))
+  // ellipse(object[0], object[1], 100, 100);
+  // }
 
 }
 
