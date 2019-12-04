@@ -11,9 +11,9 @@ function setup() {
 }
 
 function draw() {
-  background(250,180,0,20);
-  stroke(0)
-  strokeWeight(1)
+  background(0,150);
+  stroke(250,180,0,20)
+  strokeWeight(2)
 
   // Time since the sketch started
   let t = (new Date() - startTime) / 1000;
