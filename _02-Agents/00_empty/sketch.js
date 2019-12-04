@@ -1,5 +1,5 @@
 // Global var
- 
+
 function setup() {
   // Canvas setup
   canvas = createCanvas(windowWidth, windowHeight-45);
