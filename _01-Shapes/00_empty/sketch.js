@@ -7,30 +7,30 @@ var z = 0;
 let xoff = 0.0;
 
 function setup() {
- //  // Canvas setup
- //  canvas = createCanvas(windowWidth, windowHeight);
- // // canvas.parent("p5Container");
- //  // Detect screen density (retina)
- //  var density = displayDensity();
- //
- //  pixelDensity(density);
- //  // Colors and drawing modes
- //  background(200);
- //  smooth();
+  // Canvas setup
+  canvas = createCanvas(windowWidth, windowHeight);
+ // canvas.parent("p5Container");
+  // Detect screen density (retina)
+  var density = displayDensity();
+
+  pixelDensity(density);
+  // Colors and drawing modes
+  background(200);
+  smooth();
    // Canvas full page
   createCanvas(windowWidth, windowHeight);
   // Default screen density (for retina)
   pixelDensity(density);
   // Var init
   background(20);
-  position = createVector(width/2, height/2);
-  velocity = createVector(2.5, 5);
+  position = createVector(0, 0);
+  velocity = createVector(0.5, 1);
   smooth();
   // Init Var
 }
 
 function draw() {
-  background(0)
+  background(0,1)
   smooth();
   noFill();
   stroke(0.1)
@@ -45,36 +45,36 @@ function draw() {
   noStroke();
   fill(0);
  // rect(0,0,width,height);
- //noise
- xoff = xoff + 0.01;
- let n = noise(xoff) * height;
- let ncolor = noise(xoff) * 255;
 
   // Add the current speed to the location.
   position.add(velocity);
 
     // Check for bouncing
-  if ((position.x > width+(100-n)) || (position.x < 0-(100-n))) {
+  if ((position.x > width) || (position.x < 0)) {
     velocity.x = velocity.x * -1;
   }
-  if ((position.y > height+(100-n)) || (position.y < 0-(100-n))) {
+  if ((position.y > height) || (position.y < 0)) {
     velocity.y = velocity.y * -1;
   }
 
-
+  //noise
+  xoff = xoff + 0.01;
+  let n = noise(xoff) * width;
   //line(n, 0, n, height);
 
   // Display at x,y location
   strokeWeight(1+(n/70));
   stroke(0+n,50)
-  fill(100-ncolor,250-ncolor,300-ncolor,5)
-  ellipse(position.x,position.y,100-n,100-n);
-  fill(0,20);
-  strokeWeight(2);
-  stroke(0,0+ncolor)
-  noStroke()
+  fill(0,1)
+
+  ellipse(position.x,position.y,100-n,100-n);  ellipse(position.x/1.6,position.y,100-n,100-n);
+  ellipse(position.x/10,position.y,100-n,100-n);
+  noFill();
+  strokeWeight(1);
+  stroke(0)
   //rect(position.x-(120-n)/2,position.y-(120-n)/2,120-n,120-n);
-  ellipse(position.x,position.y,400-n,400-n);
+  ellipse(position.x,position.y,150-n,150-n);
+
 
 }
 
