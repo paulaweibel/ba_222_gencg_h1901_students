@@ -1,6 +1,6 @@
 ---
 layout: sketch
-title: "Experiamo" 
+title: "agent2" 
 category: "Experiment"
 thumb_name: "thumb.jpg"
 includes:
