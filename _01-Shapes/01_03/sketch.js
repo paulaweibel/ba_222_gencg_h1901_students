@@ -1,84 +1,58 @@
-// Based on the code P_2_1_1_01.pde from
-// Generative Gestaltung, ISBN: 978-3-87439-759-9
 
-// Global var
-var tileCount, actRandomSeed, actStrokeCap;
- 
+let snowflakes = []; // array to hold snowflake objects
+
 function setup() {
-  // Canvas setup
-  canvas = createCanvas(windowWidth, windowHeight-45);
-  canvas.parent("p5Container");
-  // Detect screen density (retina)
-  var density = displayDensity();
-  pixelDensity(density);
-  // Colors and drawing modes
-  smooth();
-  // Init Var
-  tileCount = 20;
-  actRandomSeed = 0;
-  actStrokeCap = ROUND; 
+  createCanvas(windowWidth,windowHeight);
+  fill(240);
+  //noStroke();
+  background(200)
 }
 
 function draw() {
-  // Canvas draw options
-  background(255);
-  smooth();
-  noFill();
+  //background('black');
+  let t = frameCount / 60; // update time
 
-  // Stroke options
-  strokeCap(actStrokeCap);
-  randomSeed(actRandomSeed);
+  // create a random number of snowflakes each frame
+  for (let i = 0; i < random(5); i++) {
+    snowflakes.push(new snowflake()); // append snowflake object
+  }
 
-  for (let gridX = 0; gridX < tileCount; gridX++) {
-    for (let gridY = 0; gridY < tileCount; gridY++) {
-
-      let posX = width / tileCount * gridX;
-      let posY = width / tileCount * gridY;
-
-      let toggle = toInt(random(0, 2));
-
-      if (toggle == 0) {
-        strokeWeight(mouseX / 20);
-        line(posX, posY, posX + width / tileCount, posY + height / tileCount);
-
-      } else if (toggle == 1) {
-        strokeWeight(mouseY / 20);
-        line(posX, posY + width / tileCount, posX + height / tileCount, posY);
-      }
-    }
+  // loop through snowflakes with a for..of loop
+  for (let flake of snowflakes) {
+    flake.update(t); // update snowflake position
+    flake.display(); // draw snowflake
   }
 }
 
-function mousePressed() {
-  actRandomSeed = toInt(random(100000));
-}
+// snowflake class
+function snowflake() {
+  // initialize coordinates
+  this.posX = 0;
+  this.posY = random(-5000, 0);
+  this.initialangle = random(0, 2 * PI);
+  this.size = random(1, 2);
 
-function keyPressed() {
-  if (key == 's' || key == 'S') saveThumb(650, 350);
-  if (key == '1') actStrokeCap = ROUND;
-  if (key == '2') actStrokeCap = SQUARE;
-  if (key == '3') actStrokeCap = PROJECT;
-}
+  // radius of snowflake spiral
+  // chosen so the snowflakes are uniformly spread out in area
+  this.radius = sqrt(random(pow(width / 2, 2)));
 
-// Tools
+  this.update = function(time) {
+    // x position follows a circle
+    let w = 0.6; // angular speed
+    let angle = w * time + this.initialangle;
+    this.posX = width / 2 + this.radius * sin(angle);
 
-// resize canvas when the window is resized
-function windowResized() {
-  resizeCanvas(windowWidth, windowHeight, false);
-}
+    // different size snowflakes fall at slightly different y speeds
+    this.posY += pow(this.size, 0.5);
 
-// Int conversion
-function toInt(value) {
-  return ~~value;
-}
+    // delete snowflake if past end of screen
+    if (this.posY > height) {
+      let index = snowflakes.indexOf(this);
+      snowflakes.splice(index, 1);
+    }
+  };
 
-// Timestamp
-function timestamp() {
-  return Date.now();
-}
-
-// Thumb
-function saveThumb(w, h) {
-  let img = get( width/2-w/2, height/2-h/2, w, h);
-  save(img,'thumb.jpg');
+  this.display = function() {
+    ellipse(this.posX, this.posY, this.size);
+  };
 }
