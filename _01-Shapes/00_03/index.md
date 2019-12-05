@@ -1,6 +1,6 @@
 ---
 layout: sketch
-title: "Controls" 
+title: "Experiamo dreiecke" 
 category: "Experiment"
 thumb_name: "thumb.jpg"
 includes:

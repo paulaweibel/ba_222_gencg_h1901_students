@@ -1,6 +1,6 @@
 ---
 layout: sketch
-title: "Lift" 
+title: "Curvy Lines" 
 category: "Experiment"
 thumb_name: "thumb.jpg"
 includes:

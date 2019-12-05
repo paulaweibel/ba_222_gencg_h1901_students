@@ -120,8 +120,8 @@ Mover.prototype.update = function() {
 
 Mover.prototype.display = function() {
   stroke(0);
-  strokeWeight(2);
-  fill(255,127);
+  strokeWeight(0);
+  fill(255);
   ellipse(this.position.x, this.position.y, this.mass * 16, this.mass * 16);
 };
 

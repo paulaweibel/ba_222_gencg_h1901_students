@@ -3,12 +3,14 @@ let snowflakes = []; // array to hold snowflake objects
 
 function setup() {
   createCanvas(windowWidth,windowHeight);
-  fill(240);
+  noStroke()
+  fill(255);
   //noStroke();
-  background(200)
+  background(20,50,80)
 }
 
 function draw() {
+  background(20,50,80,50);
   //background('black');
   let t = frameCount / 60; // update time
 
