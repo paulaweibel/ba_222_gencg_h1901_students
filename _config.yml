@@ -14,8 +14,8 @@ subtitle: I.BA_222_GENCG.H1901 - Winter 2019
 # markdown: kramdown
 
 collections:
-  01-Shapes:
+  01-Shapess:
     output: true
-    
+
   02-Agents:
     output: true
