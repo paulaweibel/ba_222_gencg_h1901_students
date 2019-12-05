@@ -1,5 +1,5 @@
 ---
 layout: front
-title: "experiments"
+title: "0"
 subtitle: "Paula Weibel"
 ---
