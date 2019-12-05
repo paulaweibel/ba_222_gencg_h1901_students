@@ -1,5 +1,5 @@
 ---
 layout: front
-title: "THE AESTHETIC OF GENERATIVE CODING"
+title: "GENCG"
 subtitle: "Examples Paula - Winter 2019"
 ---
