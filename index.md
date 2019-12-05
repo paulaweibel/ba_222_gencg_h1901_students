@@ -1,5 +1,5 @@
 ---
 layout: front
-title: "generated computergraphics"
+title: "experiments"
 subtitle: "Paula Weibel"
 ---
