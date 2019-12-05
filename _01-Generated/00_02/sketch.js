@@ -2,6 +2,7 @@
 var elem = document.getElementById('draw-shapes');
 var params = { width: 285, height: 200 };
 var two = new Two(params).appendTo(elem);
+console.log("funtkionierts?")
 
 // two has convenience methods to create shapes.
 var circle = two.makeCircle(72, 100, 50);
