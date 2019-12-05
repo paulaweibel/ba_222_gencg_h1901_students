@@ -1,5 +1,5 @@
 ---
 layout: front
-title: "please work now"
+title: "why"
 subtitle: "Paula Weibel"
 ---

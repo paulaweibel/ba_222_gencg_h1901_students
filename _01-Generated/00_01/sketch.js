@@ -13,7 +13,7 @@ function setup() {
   // rSlider = createSlider(0, 255, 100);
   // rSlider.position(20, 20);
   //how many particles
-  particleCount = 100;
+  particleCount = 10;
   initParticles();
   createCanvas(windowWidth, windowHeight);
   startTime = new Date();
@@ -24,8 +24,7 @@ function setup() {
 function draw() {
   background(0,20);
   console.log("hello")
-//  rideDuration = getRideDuration(1);
-  rideDuration = 1;
+  rideDuration = getRideDuration(0);
   console.log("no")
   //filter(BLUR, 3);
 
