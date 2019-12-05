@@ -8,7 +8,6 @@ let thickness;
 function setup() {
   cursor(HAND);
   background(0);
-
 //  canvas.parent("p5Container");
   p5.disableFriendlyErrors = true; // disables FES
   // rSlider = createSlider(0, 255, 100);
@@ -18,7 +17,7 @@ function setup() {
   initParticles();
   createCanvas(windowWidth, windowHeight);
   startTime = new Date();
-  rideDuration = getRideDuration(0);
+  rideDuration = getRideDuration(1);
 
 }
 
@@ -29,7 +28,7 @@ function draw() {
   // Time since the sketch started
   let t = (new Date() - startTime) / 1000;
   stepSize = animate(t, 0, 2, rideDuration, 2.5)
- console.log(`${t}, ${stepSize}, ${rideDuration}`)
+ //console.log(`${t}, ${stepSize}, ${rideDuration}`)
 
 
 
@@ -95,7 +94,7 @@ function keyPressed() {
   if (keyCode >= 48 && keyCode <= 57) rideDuration = getRideDuration(toInt(key)) // 48...57 = Digits
   //
   if (key === 's' || key === 'S') saveThumb(650, 350);
-  console.log(getRideDuration(toInt(key)))
+//  console.log(getRideDuration(toInt(key)))
 }
 
 function initParticles() {
