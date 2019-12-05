@@ -60,7 +60,14 @@ function keyPressed() {
   if (keyCode >= 48 && keyCode <= 57) rideDuration = getRideDuration(toInt(key)) // 48...57 = Digits
   //
   if (key === 's' || key === 'S') saveThumb(650, 350);
+//  console.log(getRideDuration(toInt(key)))
 }
+// Thumb
+function saveThumb(w, h) {
+  let img = get(width / 2 - w / 2, height / 2 - h / 2, w, h);
+  save(img, 'thumb.jpg');
+}
+
 
 function initParticles() {
   particles = [];
@@ -76,12 +83,6 @@ function windowResized() {
 function mouseClicked() {
   //initParticles();
   background(255);
-}
-
-// Thumb
-function saveThumb(w, h) {
-  let img = get(width / 2 - w / 2, height / 2 - h / 2, w, h);
-  save(img, 'thumb.jpg');
 }
 
 // resize canvas when the window is resized

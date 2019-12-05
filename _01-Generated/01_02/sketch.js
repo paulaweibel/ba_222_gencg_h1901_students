@@ -12,12 +12,13 @@ let liquid;
 function setup() {
   createCanvas(windowWidth, windowHeight);
   reset();
+  noStroke();
   // Create liquid object
   liquid = new Liquid(0, height / 2, width, height / 2, 0.1);
 }
 
 function draw() {
-  background(127);
+  background(0);
 
   // Draw water
   liquid.display();
@@ -133,3 +134,18 @@ Mover.prototype.checkEdges = function() {
     this.position.y = (height - this.mass * 8);
   }
 };
+
+function keyPressed() {
+  if (keyCode === 32) setup() // 32 = Space
+  if (keyCode === 38) direction = 'up' // 38 = ArrowUp
+  if (keyCode === 40) direction = 'down' // 40 = ArrowDown
+  if (keyCode >= 48 && keyCode <= 57) rideDuration = getRideDuration(toInt(key)) // 48...57 = Digits
+  //
+  if (key === 's' || key === 'S') saveThumb(650, 350);
+//  console.log(getRideDuration(toInt(key)))
+}
+// Thumb
+function saveThumb(w, h) {
+  let img = get(width / 2 - w / 2, height / 2 - h / 2, w, h);
+  save(img, 'thumb.jpg');
+}

@@ -58,3 +58,18 @@ function snowflake() {
     ellipse(this.posX, this.posY, this.size);
   };
 }
+
+function keyPressed() {
+  if (keyCode === 32) setup() // 32 = Space
+  if (keyCode === 38) direction = 'up' // 38 = ArrowUp
+  if (keyCode === 40) direction = 'down' // 40 = ArrowDown
+  if (keyCode >= 48 && keyCode <= 57) rideDuration = getRideDuration(toInt(key)) // 48...57 = Digits
+  //
+  if (key === 's' || key === 'S') saveThumb(650, 350);
+//  console.log(getRideDuration(toInt(key)))
+}
+// Thumb
+function saveThumb(w, h) {
+  let img = get(width / 2 - w / 2, height / 2 - h / 2, w, h);
+  save(img, 'thumb.jpg');
+}

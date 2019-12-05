@@ -86,6 +86,11 @@ function keyPressed() {
   if (key === 's' || key === 'S') saveThumb(650, 350);
 //  console.log(getRideDuration(toInt(key)))
 }
+// Thumb
+function saveThumb(w, h) {
+  let img = get(width / 2 - w / 2, height / 2 - h / 2, w, h);
+  save(img, 'thumb.jpg');
+}
 
 
 // Timestamp
@@ -93,11 +98,6 @@ function timestamp() {
   return Date.now();
 }
 
-// Thumb
-function saveThumb(w, h) {
-  let img = get( width/2-w/2, height/2-h/2, w, h);
-  save(img,'thumb.jpg');
-}
 
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
