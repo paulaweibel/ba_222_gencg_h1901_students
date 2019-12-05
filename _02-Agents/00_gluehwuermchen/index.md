@@ -1,8 +1,8 @@
 ---
 layout: sketch
-title: "agent2" 
+title: "agent2"
 category: "Experiment"
-thumb_name: "thumb.jpg"
+thumb_name: "glueh.jpg"
 includes:
   - src: "sketch.js"
 ---
