@@ -22,7 +22,7 @@ function setup() {
   // Default screen density (for retina)
   pixelDensity(density);
   // Var init
-  background(20);
+  background(0);
   position = createVector(0, 0);
   velocity = createVector(0.5, 1);
   smooth();
@@ -30,7 +30,7 @@ function setup() {
 }
 
 function draw() {
-  background(0,1)
+  background(0,50)
   smooth();
   noFill();
   stroke(0.1)
