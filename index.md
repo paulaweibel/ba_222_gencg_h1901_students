@@ -1,5 +1,5 @@
 ---
 layout: front
-title: "examples"
-subtitle: "paula"
+title: "generated computergraphics"
+subtitle: "Paula Weibel"
 ---
