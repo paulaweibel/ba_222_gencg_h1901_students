@@ -17,12 +17,14 @@ function setup() {
   initParticles();
   createCanvas(windowWidth, windowHeight);
   startTime = new Date();
-  rideDuration = getRideDuration(1);
+
 
 }
 
 function draw() {
   background(0,20);
+  rideDuration = getRideDuration(1);
+  console.log("hello")
   //filter(BLUR, 3);
 
   // Time since the sketch started
