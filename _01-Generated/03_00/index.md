@@ -1,6 +1,6 @@
 ---
 layout: sketch
-title: "gluehwuermchen version3"
+title: "03_03 not working twojs"
 category: "Experiment"
 thumb_name: "thumb.jpg"
 includes:
