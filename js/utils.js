@@ -51,7 +51,7 @@ t is current time
 b is start value
 c is change in value
 rd is ride duration
-td is transition duration 
+td is transition duration
 */
 function animate(t, b, c, rd, td) {
   if (t < td) return easeInQuad(t, b, c, td);
