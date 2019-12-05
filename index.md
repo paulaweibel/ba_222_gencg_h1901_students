@@ -1,5 +1,5 @@
 ---
 layout: front
-title: "lifti sketches"
+title: "lift sketches"
 subtitle: "Paula Weibel"
 ---
