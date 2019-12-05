@@ -23,8 +23,10 @@ function setup() {
 
 function draw() {
   background(0,20);
-  rideDuration = getRideDuration(1);
   console.log("hello")
+//  rideDuration = getRideDuration(1);
+  rideDuration = 1;
+  console.log("no")
   //filter(BLUR, 3);
 
   // Time since the sketch started
