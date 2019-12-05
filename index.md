@@ -1,5 +1,5 @@
 ---
 layout: front
-title: "why"
+title: "funktionier"
 subtitle: "Paula Weibel"
 ---
