@@ -15,7 +15,7 @@ function setup() {
   // rSlider = createSlider(0, 255, 100);
   // rSlider.position(20, 20);
   //how many particles
-  particleCount = 20;
+  particleCount = 50;
   initParticles();
   createCanvas(windowWidth, windowHeight);
   startTime = new Date();
@@ -40,7 +40,7 @@ n = noise(xoff) * 255;
 
 
   //Useful Parameters
-  particleStepMax = 10 + stepSize*20;
+  particleStepMax = 10 + stepSize*2;
   thickness = 5 + stepSize*10;
 //console.log(stepSize)
 //console.log(t)
@@ -56,7 +56,7 @@ n = noise(xoff) * 255;
      // background(0,10)
     noFill()
     stroke(n,0+(stepSize*0),0+(stepSize*200));
-    strokeWeight(thickness+(stepSize*20));
+    strokeWeight(thickness);
 
 //console.log("particleCount = "+ particleCount);
 //console.log("rideDuration = "+ rideDuration);

@@ -4,8 +4,6 @@ let stepSize, rideDuration, startTime, t;
 let objects;
 let particleCount;
 let thickness;
-let n;
-let xoff=0;
 
 function setup() {
   cursor(HAND);
@@ -15,48 +13,45 @@ function setup() {
   // rSlider = createSlider(0, 255, 100);
   // rSlider.position(20, 20);
   //how many particles
-  particleCount = 20;
+  particleCount = 500;
   initParticles();
   createCanvas(windowWidth, windowHeight);
   startTime = new Date();
-  console.log("gluehwuermchen version 2")
+  console.log("gluehwuermchen version 1")
 
 
 }
 
 function draw() {
-
+  background(0,20);
   rideDuration = getRideDuration(0);
   //filter(BLUR, 3);
 
   // Time since the sketch started
   let t = (new Date() - startTime) / 1000;
   stepSize = animate(t, 0, 2, rideDuration, 2.5)
- //console.log(`${t}, ${stepSize}, ${rideDuration}`)
+  console.log(`${t}, ${stepSize}, ${rideDuration}`)
 
- //noise
- xoff = xoff + 0.01;
-n = noise(xoff) * 255;
 
 
   //Useful Parameters
-  particleStepMax = 10 + stepSize*20;
-  thickness = 5 + stepSize*10;
+  particleStepMax = 2 + stepSize*2;
+  thickness = 5 + stepSize*50;
 //console.log(stepSize)
 //console.log(t)
 
   //TEXT
-  // noStroke()
-  // fill(250)
-  // text('particleCount: '+ particleCount, 10, 30);
+  noStroke()
+  fill(250)
+  text('particleCount: '+ particleCount, 10, 30);
   // text('particleStepMax: '+ particleStepMax, 10, 50);
   // text('strokeWeight: '+ thickness, 10, 70);
 
     //let r = rSlider.value(10);
-     // background(0,10)
+
     noFill()
-    stroke(n,0+(stepSize*0),0+(stepSize*200));
-    strokeWeight(thickness+(stepSize*20));
+    stroke(250+(stepSize*200),180+(stepSize*200),0,50);
+    strokeWeight(thickness);
 
 //console.log("particleCount = "+ particleCount);
 //console.log("rideDuration = "+ rideDuration);
