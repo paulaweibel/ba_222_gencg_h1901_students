@@ -54,8 +54,8 @@ rd is ride duration
 td is transition duration
 */
 function animate(t, b, c, rd, td) {
-  if (t < td) return easeInQuad(t, b, c, td);
+  if (t < td) return easeInOutSine(t, b, c, d);
   else if (t < (rd - td)) return c;
-  else if (t < rd) return c - easeOutQuad(t - (rd - td), b, c, td);
+  else if (t < rd) return c - easeInOutSine(t, b, c, d);
   else if (t > rd) return 0;
 }
