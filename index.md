@@ -1,5 +1,5 @@
 ---
 layout: front
-title: "lift sketches"
+title: "sketches"
 subtitle: "Paula"
 ---
