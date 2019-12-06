@@ -20,9 +20,12 @@
 
   {% for include in page.includes %}
     <script src="{{ include.src }}"></script>
+    <script src="../../js/utils.js"></script>
+    <script src="../../js/two.min.js"></script>
+    <script src="../../js/two.js"></script>
   {% endfor %}
 
-  
+
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
