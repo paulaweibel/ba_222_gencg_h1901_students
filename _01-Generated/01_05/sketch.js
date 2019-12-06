@@ -24,7 +24,7 @@ function setup() {
   // Var init
   background(0);
   position = createVector(0, 0);
-  velocity = createVector(2, 4);
+  velocity = createVector(50, 100);
   smooth();
   position.x=width/2;
   position.y=height/2;
@@ -59,15 +59,13 @@ function draw() {
   strokeWeight(1+(n/70));
   stroke(0+n,50)
 
-  strokeWeight(10);
-  stroke(20,200)
-  ellipse(position.x,position.y,100-n,100-n);
-  fill(20,0,0);
-  noFill()
   strokeWeight(2);
-  stroke(250)
-  //rect(position.x-(120-n)/2,position.y-(120-n)/2,120-n,120-n);
-  ellipse(position.x,position.y,102-n,102-n);
+  stroke(20,200)
+  ellipse(position.x,position.y,110-n,110-n);
+
+  strokeWeight(3);
+  stroke(250,100)
+  ellipse(position.x,position.y,100-n,100-n);
 
 
 }

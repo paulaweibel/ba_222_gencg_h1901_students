@@ -23,7 +23,7 @@ function setup() {
   pixelDensity(density);
   // Var init
   background(0);
-  position = createVector(0, 0);
+  position = createVector(0,0);
   velocity = createVector(2, 4);
   smooth();
   position.x=width/2;
@@ -44,8 +44,8 @@ function draw() {
 
 
   //noise
-  xoff = xoff + 0.05;
-  let n = noise(xoff) * width/10;
+  xoff = xoff + 0.01;
+  let n = noise(xoff) * 1000;
   //line(n, 0, n, height);
 
   //  Check for bouncing
@@ -56,18 +56,16 @@ function draw() {
     velocity.y = velocity.y * -1;
   }
   // Display at x,y location
-  strokeWeight(1+(n/70));
-  stroke(0+n,50)
+  // strokeWeight(1+(n/70));
+  // stroke(0+n,50)
 
-  strokeWeight(10);
-  stroke(20,200)
+  strokeWeight(5);
+  stroke(0,0,0,200)
   ellipse(position.x,position.y,100-n,100-n);
-  fill(20,0,0);
-  noFill()
-  strokeWeight(2);
-  stroke(250)
-  //rect(position.x-(120-n)/2,position.y-(120-n)/2,120-n,120-n);
-  ellipse(position.x,position.y,102-n,102-n);
+  strokeWeight(1);
+  stroke(300-(n/3),300-(n/2),300-(n/5))
+  console.log(n)
+  ellipse(position.x,position.y,105-n,105-n);
 
 
 }
