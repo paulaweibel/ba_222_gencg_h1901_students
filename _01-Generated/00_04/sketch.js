@@ -16,7 +16,7 @@ function setup() {
   // rSlider = createSlider(0, 255, 100);
   // rSlider.position(20, 20);
   //how many particles
-  particleCount = 10;
+  particleCount = 20;
 
   initParticles();
   createCanvas(windowWidth, windowHeight);
