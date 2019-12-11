@@ -4,59 +4,32 @@ let stepSize, rideDuration, startTime, t;
 let objects;
 let particleCount;
 let thickness;
-let n;
-let x;
-let xoff=0;
-
-// Global var
-let graphics, app;
-let capturer, fps;
 
 function setup() {
+  background(0);
   p5.disableFriendlyErrors = true; // disables FES
-  particleCount = 100;
-  initParticles();
+  particleCount = 100; //PARTIKELANZAHL
+  initParticles(); //start
   createCanvas(windowWidth, windowHeight);
   startTime = new Date();
-
-  // capturer.start();
 }
 
 function draw() {
-background(0,10)
-console.log(stepSize)
-  rideDuration = getRideDuration(5);
-  x=0;
+  background(0,20);
+  rideDuration = getRideDuration(1);
 
-
-
+  // Time since the sketch started
   let t = (new Date() - startTime) / 1000;
   stepSize = animate(t, 0, 2, rideDuration, 2.5)
 
-    if(direction == "up"){
-      x=stepSize*-200;
-    }
-    if(direction == "down"){
-        x=stepSize*200;
-    }
- //noise
-xoff = xoff + 0.01;
-n = noise(xoff) * 255;
-
-
   //Useful Parameters
-  particleStepMax = 10 + stepSize*2;
-  thickness = 2 + stepSize*10;
+  particleStepMax = 2 + stepSize*2;
+  thickness = 5 + stepSize*50;
 
-    noFill()
-    stroke(250,180-n,0,100)
-    strokeWeight(5)
-
-    // stroke(n,0+(stepSize*0),0+(stepSize*200));
-    // strokeWeight(thickness+(stepSize*20));
-
-//console.log("particleCount = "+ particleCount);
-//console.log("rideDuration = "+ rideDuration);
+  //ellipsendarstellung
+  noFill()
+  stroke(250+(stepSize*200),180+(stepSize*200),0,50);
+  strokeWeight(thickness);
 
 stepSize = (direction === 'up') ? +stepSize : -stepSize;
 
@@ -71,7 +44,7 @@ stepSize = (direction === 'up') ? +stepSize : -stepSize;
 function Particle() {
   this.pos = createVector(random(windowWidth), random(windowHeight));
   this.tail = [];
-  this.tailLength = 5;
+  this.tailLength = 1;
 }
 
 Particle.prototype.move = function() {
@@ -86,7 +59,7 @@ Particle.prototype.move = function() {
 
 Particle.prototype.draw = function() {
   this.tail.forEach(pos => {
-    line(this.pos.x, this.pos.y+x, pos.x, pos.y+x);
+    ellipse(this.pos.x, this.pos.y, pos.x, pos.y);
   });
 }
 
@@ -96,9 +69,7 @@ function keyPressed() {
   if (keyCode === 38) direction = 'up' // 38 = ArrowUp
   if (keyCode === 40) direction = 'down' // 40 = ArrowDown
   if (keyCode >= 48 && keyCode <= 57) rideDuration = getRideDuration(toInt(key)) // 48...57 = Digits
-  //
   if (key === 's' || key === 'S') saveThumb(650, 350);
-//  console.log(getRideDuration(toInt(key)))
 }
 
 function initParticles() {
@@ -110,11 +81,6 @@ function initParticles() {
 
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
-}
-
-function mouseClicked() {
-  //initParticles();
-  background(0);
 }
 
 // Thumb

@@ -24,7 +24,7 @@ function setup() {
 
 function draw() {
 //background(0)
-  rideDuration = getRideDuration(0);
+  rideDuration = getRideDuration(7);
   x=0;
 
   let t = (new Date() - startTime) / 1000;
