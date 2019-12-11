@@ -14,7 +14,7 @@ function setup() {
   initParticles();
   createCanvas(windowWidth, windowHeight);
   startTime = new Date();
-  background(100,0,0);
+  background(0);
 }
 
 function draw() {
@@ -25,22 +25,18 @@ function draw() {
   let t = (new Date() - startTime) / 1000;
   stepSize = animate(t, 0, 2, rideDuration, 2.5)
 
- //noise
- xoff = xoff + 0.01;
- n = noise(xoff) * 255;
-
 
   //Useful Parameters
-  particleStepMaxX = 20+stepSize;
+  particleStepMaxX = 10+stepSize;
   thickness = stepSize*5;
-  particleStepMaxY = 10;
+  particleStepMaxY = 3;
 
   if(direction=="up"){
-    particleStepMaxY = 10;
+    particleStepMaxY = 3;
   }
 
   if(direction=="down"){
-    particleStepMaxY = -10;
+    particleStepMaxY = -3;
   }
 
 
