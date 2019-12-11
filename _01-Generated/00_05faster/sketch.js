@@ -25,7 +25,7 @@ function setup() {
 function draw() {
 background(0,10)
 console.log(stepSize)
-  rideDuration = getRideDuration(5);
+  rideDuration = getRideDuration(toInt(key));
   x=0;
 
 

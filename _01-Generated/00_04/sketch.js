@@ -29,7 +29,7 @@ function setup() {
 function draw() {
 
 console.log(x)
-  rideDuration = getRideDuration(0);
+  rideDuration = getRideDuration(toInt(key));
   //filter(BLUR, 3);
   x=0;
 

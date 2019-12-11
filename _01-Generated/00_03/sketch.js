@@ -26,7 +26,7 @@ function setup() {
 
 function draw() {
 
-  rideDuration = getRideDuration(0);
+  rideDuration = getRideDuration(toInt(key));
   //filter(BLUR, 3);
 
   // Time since the sketch started

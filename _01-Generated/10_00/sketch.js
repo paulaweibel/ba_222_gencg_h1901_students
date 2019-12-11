@@ -16,7 +16,7 @@ function setup() {
 
 function draw() {
   background(0,20);
-  rideDuration = getRideDuration(1);
+  rideDuration = getRideDuration(toInt(key));;
 
   // Time since the sketch started
   let t = (new Date() - startTime) / 1000;

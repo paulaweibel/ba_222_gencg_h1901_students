@@ -1,6 +1,3 @@
-
-
-
 // Global var
 let direction;
 let stepSize, rideDuration, startTime, t;
@@ -8,52 +5,48 @@ let objects;
 let particleCount;
 let thickness;
 let n;
-let x;
 let xoff=0;
 
 function setup() {
-  p5.disableFriendlyErrors = true; // disables FES
+  cursor(HAND);
   background(0);
-  particleCount = 50;
+  p5.disableFriendlyErrors = true; // disables FES
+
+  //how many particles
+  particleCount = 20;
   initParticles();
   createCanvas(windowWidth, windowHeight);
   startTime = new Date();
-  background(0);
+  console.log("gluehwuermchen version 2")
+
+
 }
 
-
 function draw() {
-//background(0)
-  rideDuration = getRideDuration(toInt(key))
-  x=0;
 
+  rideDuration = getRideDuration(toInt(key))
+  //filter(BLUR, 3);
+
+  // Time since the sketch started
   let t = (new Date() - startTime) / 1000;
   stepSize = animate(t, 0, 2, rideDuration, 2.5)
+ //console.log(`${t}, ${stepSize}, ${rideDuration}`)
 
-    if(direction == "up"){
-      x=stepSize*-200;
-    }
-    if(direction == "down"){
-        x=stepSize*200;
-    }
  //noise
-xoff = xoff + 0.01;
+ xoff = xoff + 0.01;
 n = noise(xoff) * 255;
 
 
   //Useful Parameters
-  particleStepMax = 10 + stepSize*2;
-  thickness = 2 + stepSize*10+x;
+  particleStepMax = 5 + stepSize*10;
+  thickness = 5 + stepSize*5;
 
-    stroke(250-(stepSize*20),180-(stepSize*50),0,20)
-    strokeWeight(2+(stepSize*7))
-    console.log(x)
 
-    // stroke(n,0+(stepSize*0),0+(stepSize*200));
-    // strokeWeight(thickness+(stepSize*20));
+     // background(0,10)
+    stroke(0,20)
+    fill(n,0+(stepSize*0),0+(stepSize*200));
+    strokeWeight(thickness+(stepSize*20));
 
-//console.log("particleCount = "+ particleCount);
-//console.log("rideDuration = "+ rideDuration);
 
 stepSize = (direction === 'up') ? +stepSize : -stepSize;
 
@@ -83,7 +76,7 @@ Particle.prototype.move = function() {
 
 Particle.prototype.draw = function() {
   this.tail.forEach(pos => {
-    line(this.pos.x, this.pos.y+x, pos.x, pos.y+x);
+    ellipse(this.pos.x, this.pos.y,random(80,100));
   });
 }
 

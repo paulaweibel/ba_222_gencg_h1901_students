@@ -1,6 +1,3 @@
-
-
-
 // Global var
 let direction;
 let stepSize, rideDuration, startTime, t;
@@ -8,52 +5,50 @@ let objects;
 let particleCount;
 let thickness;
 let n;
-let x;
 let xoff=0;
 
 function setup() {
+  cursor(HAND);
   p5.disableFriendlyErrors = true; // disables FES
-  background(0);
   particleCount = 50;
   initParticles();
   createCanvas(windowWidth, windowHeight);
   startTime = new Date();
-  background(0);
+  background(100,0,0);
 }
 
-
 function draw() {
-//background(0)
-  rideDuration = getRideDuration(toInt(key))
-  x=0;
 
+  rideDuration = getRideDuration(toInt(key));
+
+  // Time since the sketch started
   let t = (new Date() - startTime) / 1000;
   stepSize = animate(t, 0, 2, rideDuration, 2.5)
 
-    if(direction == "up"){
-      x=stepSize*-200;
-    }
-    if(direction == "down"){
-        x=stepSize*200;
-    }
  //noise
-xoff = xoff + 0.01;
-n = noise(xoff) * 255;
+ xoff = xoff + 0.01;
+ n = noise(xoff) * 255;
 
 
   //Useful Parameters
-  particleStepMax = 10 + stepSize*2;
-  thickness = 2 + stepSize*10+x;
+  particleStepMaxX = 20+stepSize;
+  thickness = stepSize*5;
+  particleStepMaxY = 10;
 
-    stroke(250-(stepSize*20),180-(stepSize*50),0,20)
-    strokeWeight(2+(stepSize*7))
-    console.log(x)
+  if(direction=="up"){
+    particleStepMaxY = 10;
+  }
 
-    // stroke(n,0+(stepSize*0),0+(stepSize*200));
-    // strokeWeight(thickness+(stepSize*20));
+  if(direction=="down"){
+    particleStepMaxY = -10;
+  }
 
-//console.log("particleCount = "+ particleCount);
-//console.log("rideDuration = "+ rideDuration);
+
+// background(0,10)
+    stroke(100,0,0,10);
+    fill(0,0,0,255-stepSize);
+    strokeWeight(10+thickness+(stepSize*20));
+
 
 stepSize = (direction === 'up') ? +stepSize : -stepSize;
 
@@ -77,13 +72,13 @@ Particle.prototype.move = function() {
   }
   this.tail.push(this.pos.copy());
 
-  this.pos.x += random(-particleStepMax, particleStepMax);
-  this.pos.y += random(-particleStepMax, particleStepMax);
+  this.pos.x += random(particleStepMaxX, -particleStepMaxX);
+  this.pos.y += random(particleStepMaxY);
 }
 
 Particle.prototype.draw = function() {
   this.tail.forEach(pos => {
-    line(this.pos.x, this.pos.y+x, pos.x, pos.y+x);
+    ellipse(this.pos.x, this.pos.y,1+(-stepSize*100));
   });
 }
 
@@ -93,7 +88,6 @@ function keyPressed() {
   if (keyCode === 38) direction = 'up' // 38 = ArrowUp
   if (keyCode === 40) direction = 'down' // 40 = ArrowDown
   if (keyCode >= 48 && keyCode <= 57) rideDuration = getRideDuration(toInt(key)) // 48...57 = Digits
-  //
   if (key === 's' || key === 'S') saveThumb(650, 350);
 //  console.log(getRideDuration(toInt(key)))
 }
@@ -101,7 +95,7 @@ function keyPressed() {
 function initParticles() {
   particles = [];
   for(var i = 0; i < particleCount; i++) {
-    particles.push(new Particle());
+  particles.push(new Particle());
   }
 }
 

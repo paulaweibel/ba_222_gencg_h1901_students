@@ -16,7 +16,7 @@ function setup() {
 
 function draw() {
   background(0);
-  rideDuration = getRideDuration(toInt(key))
+  rideDuration = getRideDuration(toInt(key));
 
 
 
