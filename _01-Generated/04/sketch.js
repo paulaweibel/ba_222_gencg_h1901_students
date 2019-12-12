@@ -19,9 +19,17 @@ function setup() {
   background('#000c14');
   wid = windowHeight/200;
 
+  //introductionscreen text
+  fill(200);
+  textSize(windowWidth/50);
+  textAlign(CENTER);
+  text("push arrow for direction, then the floornumber and then space",windowWidth/2,windowHeight/2)
+
 }
 
 function draw() {
+
+
   proportion= 10*wid/rideDuration;
 
   // Time since the sketch started
@@ -31,9 +39,9 @@ function draw() {
 
 
   //Useful Parameters
-  particleStepMaxX = proportion;
-  thickness = stepSize*wid;
-  particleStepMaxY = proportion;
+  particleStepMaxX = proportion; //horizontal steps of circles
+  thickness = stepSize*wid; //stroke thickness
+  particleStepMaxY = proportion; //vertical steps of circles
     // console.log(thickness)
 
   //noise
@@ -41,11 +49,11 @@ function draw() {
    n = noise(xoff) * 100;
 
   if(direction=="up"){
-    particleStepMaxY = proportion;
+    particleStepMaxY = proportion; //vertical steps of circles
   }
 
   if(direction=="down"){
-    particleStepMaxY = -proportion;
+    particleStepMaxY = -proportion; //vertical steps of circles
   }
 
 
@@ -54,7 +62,6 @@ function draw() {
     stroke(250-thickness-n,0,300-n,10);
     console.log(n)
     fill(10,10,10,20);
-    // noFill();
     strokeWeight(thickness);
 
 
@@ -113,7 +120,7 @@ function init() {
     particles.push(new Particle());
   }
   startTime = new Date();
-  // background(0);
+  background(0);
   stepSize = (direction === 'up') ? +stepSize : -stepSize;
   wid = windowHeight/100;
   console.log(stepSize)
