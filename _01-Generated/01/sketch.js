@@ -4,42 +4,41 @@ let stepSize, rideDuration, startTime, t;
 let objects;
 let particleCount;
 let thickness;
-let wid;
+
 
 function setup() {
   background(0);
-  p5.disableFriendlyErrors = true;
-  //how many particles
-  particleCount = 200;
-  initParticles();
+  p5.disableFriendlyErrors = true; // disables FES
+  particleCount = 100; //PARTIKELANZAHL
+  initParticles(); //start
   createCanvas(windowWidth, windowHeight);
   startTime = new Date();
   wid = windowHeight/50;
   rideDuration = getRideDuration(toInt(key))
-
 }
 
 function draw() {
-  background(0,20);
+  // Time since the sketch started
   let t = (new Date() - startTime) / 1000;
   stepSize = animate(t, 0, 2, rideDuration, 2.5)
 
   //Useful Parameters
-  particleStepMax = 2 + stepSize*2;
-  thickness = wid + stepSize*wid*2;
-  console.log(wid)
-
-  noFill()
+  particleStepMax = 2;
+  thickness = wid + stepSize*wid;
+  console.log(thickness)
+  //ellipsendarstellung
+  background(0);
+  fill(0,50)
   stroke(250+(stepSize*200),180+(stepSize*200),0,50);
   strokeWeight(thickness);
 
-
-stepSize = (direction === 'up') ? +stepSize : -stepSize;
+  stepSize = (direction === 'up') ? +stepSize : -stepSize;
 
   particles.forEach(p => {
     p.move();
     p.draw();
   });
+
 }
 
 
@@ -47,7 +46,7 @@ stepSize = (direction === 'up') ? +stepSize : -stepSize;
 function Particle() {
   this.pos = createVector(random(windowWidth), random(windowHeight));
   this.tail = [];
-  this.tailLength = 5;
+  this.tailLength = 1;
 }
 
 Particle.prototype.move = function() {
@@ -62,17 +61,16 @@ Particle.prototype.move = function() {
 
 Particle.prototype.draw = function() {
   this.tail.forEach(pos => {
-    line(this.pos.x, this.pos.y, pos.x, pos.y);
+    ellipse(this.pos.x, this.pos.y, windowHeight/6);
   });
 }
 
 
 function keyPressed() {
-  if (keyCode === 32) init() // 32 = Space
+  if (keyCode === 32)  init()// 32 = Space
   if (keyCode === 38) direction = 'up' // 38 = ArrowUp
   if (keyCode === 40) direction = 'down' // 40 = ArrowDown
   if (keyCode >= 48 && keyCode <= 57) rideDuration = getRideDuration(toInt(key)) // 48...57 = Digits
-  //
   if (key === 's' || key === 'S') saveThumb(650, 350);
 }
 
@@ -80,8 +78,10 @@ function initParticles() {
   particles = [];
   for(var i = 0; i < particleCount; i++) {
     particles.push(new Particle());
+    startTime = new Date();
   }
 }
+
 
 function init() {
   particles = [];
@@ -94,11 +94,6 @@ function init() {
 
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
-}
-
-function mouseClicked() {
-  //initParticles();
-  background(0);
 }
 
 // Thumb

@@ -4,56 +4,67 @@ let stepSize, rideDuration, startTime, t;
 let objects;
 let particleCount;
 let thickness;
+let n;
+let x;
+let xoff=0;
+let wid;
 
 function setup() {
+  cursor(HAND);
   background(0);
   p5.disableFriendlyErrors = true; // disables FES
-  particleCount = 50; //PARTIKELANZAHL
-  initParticles(); //start
+  //how many particles
+  particleCount = 60;
+  initParticles();
   createCanvas(windowWidth, windowHeight);
+  wid = windowHeight/10;
   startTime = new Date();
 }
 
 function draw() {
-  background(0);
-  rideDuration = getRideDuration(toInt(key));
-
-
+  x=0; //parameter for the grow direction
 
   // Time since the sketch started
   let t = (new Date() - startTime) / 1000;
   stepSize = animate(t, 0, 2, rideDuration, 2.5)
+  console.log(wid)
+
+    if(direction == "up"){
+      x=stepSize*-wid;
+    }
+    if(direction == "down"){
+        x=stepSize*wid;
+    }
+ //noise
+  xoff = xoff + 0.01;
+  n = noise(xoff) * 255;
+
 
   //Useful Parameters
-  // particleStepMax = 10+stepSize*5;
-  particleStepMax = 1;
+  particleStepMax = wid/10 + stepSize*wid/10;
+  thickness = wid/50 + stepSize*wid/10;
 
-  thickness = 5+stepSize*50;
+    noFill()
+    stroke(250,180,0,20)
+    strokeWeight(2)
 
-  //ellipsendarstellung
-  fill(0,100)
-  stroke(250,180,0);
-  strokeWeight(thickness);
+    stroke(n,0,0+(stepSize*200));
+    strokeWeight(thickness+(stepSize*20));
 
-
-  particle.forEach(p => {
-    p.move();
-    p.draw();
-  });
+stepSize = (direction === 'up') ? +stepSize : -stepSize;
 
   particles.forEach(p => {
     p.move();
     p.draw();
   });
-
 }
 
 
 
-function Particles() {
+function Particle() {
   this.pos = createVector(random(windowWidth), random(windowHeight));
   this.tail = [];
-  this.tailLength = 1;
+  this.tailLength = 5;
 }
 
 Particle.prototype.move = function() {
@@ -68,19 +79,19 @@ Particle.prototype.move = function() {
 
 Particle.prototype.draw = function() {
   this.tail.forEach(pos => {
-    ellipse(this.pos.x, this.pos.y, 200);
+    line(this.pos.x, this.pos.y+x, pos.x, pos.y+x);
   });
 }
 
 
-
-
 function keyPressed() {
-  if (keyCode === 32) setup() // 32 = Space
+  if (keyCode === 32) init() // 32 = Space
   if (keyCode === 38) direction = 'up' // 38 = ArrowUp
   if (keyCode === 40) direction = 'down' // 40 = ArrowDown
   if (keyCode >= 48 && keyCode <= 57) rideDuration = getRideDuration(toInt(key)) // 48...57 = Digits
+  //
   if (key === 's' || key === 'S') saveThumb(650, 350);
+//  console.log(getRideDuration(toInt(key)))
 }
 
 function initParticles() {
@@ -90,8 +101,23 @@ function initParticles() {
   }
 }
 
+function init() {
+  particles = [];
+  for(var i = 0; i < particleCount; i++) {
+    particles.push(new Particle());
+  }
+  startTime = new Date();
+  background(0);
+  stepSize = (direction === 'up') ? +stepSize : -stepSize;
+}
+
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
+}
+
+function mouseClicked() {
+  //initParticles();
+  background(0);
 }
 
 // Thumb
