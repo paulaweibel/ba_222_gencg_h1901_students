@@ -10,6 +10,7 @@ let thickness;
 let n;
 let x;
 let xoff=0;
+let wid;
 
 function setup() {
   p5.disableFriendlyErrors = true; // disables FES
@@ -19,22 +20,23 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
   startTime = new Date();
   background(0);
+  introduction()
+
 }
 
 
 function draw() {
 //background(0)
-  rideDuration = getRideDuration(toInt(key))
   x=0;
+  wid=windowHeight/10;
 
   let t = (new Date() - startTime) / 1000;
   stepSize = animate(t, 0, 2, rideDuration, 2.5)
-
     if(direction == "up"){
-      x=stepSize*-200;
+      x=stepSize*-wid;
     }
     if(direction == "down"){
-        x=stepSize*200;
+        x=stepSize*wid;
     }
  //noise
 xoff = xoff + 0.01;
@@ -42,18 +44,12 @@ n = noise(xoff) * 255;
 
 
   //Useful Parameters
-  particleStepMax = 10 + stepSize*2;
+  particleStepMax = 10 + stepSize + n
   thickness = 2 + stepSize*10+x;
 
-    stroke(250-(stepSize*20),180-(stepSize*50),0,20)
-    strokeWeight(2+(stepSize*7))
-    console.log(x)
+    stroke(250-(stepSize*20),180-(stepSize*50),n,100)
+    strokeWeight(2+(stepSize*wid))
 
-    // stroke(n,0+(stepSize*0),0+(stepSize*200));
-    // strokeWeight(thickness+(stepSize*20));
-
-//console.log("particleCount = "+ particleCount);
-//console.log("rideDuration = "+ rideDuration);
 
 stepSize = (direction === 'up') ? +stepSize : -stepSize;
 
@@ -89,7 +85,7 @@ Particle.prototype.draw = function() {
 
 
 function keyPressed() {
-  if (keyCode === 32) setup() // 32 = Space
+  if (keyCode === 32) init() // 32 = Space
   if (keyCode === 38) direction = 'up' // 38 = ArrowUp
   if (keyCode === 40) direction = 'down' // 40 = ArrowDown
   if (keyCode >= 48 && keyCode <= 57) rideDuration = getRideDuration(toInt(key)) // 48...57 = Digits
@@ -105,6 +101,18 @@ function initParticles() {
   }
 }
 
+
+function init() {
+  particles = [];
+  for(var i = 0; i < particleCount; i++) {
+    particles.push(new Particle());
+  }
+  startTime = new Date();
+  background(0);
+  stepSize = (direction === 'up') ? +stepSize : -stepSize;
+  wid = windowHeight/100;
+}
+
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
 }
@@ -114,6 +122,10 @@ function mouseClicked() {
   background(0);
 }
 
+function introduction(){
+  //introductionscreen text
+  console.log("push arrow for direction, then the floornumber and then space")
+}
 // Thumb
 function saveThumb(w, h) {
   let img = get(width / 2 - w / 2, height / 2 - h / 2, w, h);
