@@ -5,6 +5,7 @@ let objects;
 let particleCount;
 let thickness;
 
+
 function setup() {
   background(0);
   p5.disableFriendlyErrors = true; // disables FES
@@ -12,31 +13,32 @@ function setup() {
   initParticles(); //start
   createCanvas(windowWidth, windowHeight);
   startTime = new Date();
+  wid = windowHeight/50;
+  rideDuration = getRideDuration(toInt(key))
 }
 
 function draw() {
-  background(0);
-  rideDuration = getRideDuration(toInt(key));
-
   // Time since the sketch started
   let t = (new Date() - startTime) / 1000;
   stepSize = animate(t, 0, 2, rideDuration, 2.5)
 
   //Useful Parameters
-  particleStepMax = 1;
-  thickness = 5 + stepSize*50;
-
+  particleStepMax = 2;
+  thickness = wid + stepSize*wid;
+  console.log(thickness)
   //ellipsendarstellung
-  noFill()
+  background(0);
+  fill(0,50)
   stroke(250+(stepSize*200),180+(stepSize*200),0,50);
   strokeWeight(thickness);
 
-stepSize = (direction === 'up') ? +stepSize : -stepSize;
+  stepSize = (direction === 'up') ? +stepSize : -stepSize;
 
   particles.forEach(p => {
     p.move();
     p.draw();
   });
+
 }
 
 
@@ -59,13 +61,13 @@ Particle.prototype.move = function() {
 
 Particle.prototype.draw = function() {
   this.tail.forEach(pos => {
-    ellipse(this.pos.x, this.pos.y, 50);
+    ellipse(this.pos.x, this.pos.y, windowHeight/6);
   });
 }
 
 
 function keyPressed() {
-  if (keyCode === 32) setup() // 32 = Space
+  if (keyCode === 32)  init()// 32 = Space
   if (keyCode === 38) direction = 'up' // 38 = ArrowUp
   if (keyCode === 40) direction = 'down' // 40 = ArrowDown
   if (keyCode >= 48 && keyCode <= 57) rideDuration = getRideDuration(toInt(key)) // 48...57 = Digits
@@ -76,7 +78,18 @@ function initParticles() {
   particles = [];
   for(var i = 0; i < particleCount; i++) {
     particles.push(new Particle());
+    startTime = new Date();
   }
+}
+
+
+function init() {
+  particles = [];
+  for(var i = 0; i < particleCount; i++) {
+    particles.push(new Particle());
+  }
+  startTime = new Date();
+  stepSize = (direction === 'up') ? +stepSize : -stepSize;
 }
 
 function windowResized() {
