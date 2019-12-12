@@ -4,40 +4,34 @@ let stepSize, rideDuration, startTime, t;
 let objects;
 let particleCount;
 let thickness;
+let wid;
 
 function setup() {
-  cursor(HAND);
   background(0);
-  p5.disableFriendlyErrors = true; 
-
+  p5.disableFriendlyErrors = true;
   //how many particles
-  particleCount = 100;
+  particleCount = 200;
   initParticles();
   createCanvas(windowWidth, windowHeight);
   startTime = new Date();
-
+  wid = windowHeight/50;
+  rideDuration = getRideDuration(toInt(key))
 
 }
 
 function draw() {
   background(0,20);
-  rideDuration = getRideDuration(toInt(key))
-
   let t = (new Date() - startTime) / 1000;
   stepSize = animate(t, 0, 2, rideDuration, 2.5)
 
   //Useful Parameters
   particleStepMax = 2 + stepSize*2;
-  thickness = 5 + stepSize*50;
+  thickness = wid + stepSize*wid*2;
+  console.log(wid)
 
-  //TEXT
-  noStroke()
-  fill(250)
-  text('particleCount: '+ particleCount, 10, 30);
-
-    noFill()
-    stroke(250+(stepSize*200),180+(stepSize*200),0,50);
-    strokeWeight(thickness);
+  noFill()
+  stroke(250+(stepSize*200),180+(stepSize*200),0,50);
+  strokeWeight(thickness);
 
 
 stepSize = (direction === 'up') ? +stepSize : -stepSize;
@@ -74,7 +68,7 @@ Particle.prototype.draw = function() {
 
 
 function keyPressed() {
-  if (keyCode === 32) setup() // 32 = Space
+  if (keyCode === 32) init() // 32 = Space
   if (keyCode === 38) direction = 'up' // 38 = ArrowUp
   if (keyCode === 40) direction = 'down' // 40 = ArrowDown
   if (keyCode >= 48 && keyCode <= 57) rideDuration = getRideDuration(toInt(key)) // 48...57 = Digits
@@ -87,6 +81,15 @@ function initParticles() {
   for(var i = 0; i < particleCount; i++) {
     particles.push(new Particle());
   }
+}
+
+function init() {
+  particles = [];
+  for(var i = 0; i < particleCount; i++) {
+    particles.push(new Particle());
+  }
+  startTime = new Date();
+  stepSize = (direction === 'up') ? +stepSize : -stepSize;
 }
 
 function windowResized() {
