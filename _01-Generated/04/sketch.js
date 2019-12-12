@@ -6,44 +6,56 @@ let particleCount;
 let thickness;
 let n;
 let xoff=0;
+let wid;
+let proportion;
 
 function setup() {
   cursor(HAND);
   p5.disableFriendlyErrors = true; // disables FES
-  particleCount = 50;
+  particleCount = 150;
   initParticles();
   createCanvas(windowWidth, windowHeight);
   startTime = new Date();
-  background(0);
+  background('#000c14');
+  wid = windowHeight/200;
+
 }
 
 function draw() {
-
-  rideDuration = getRideDuration(toInt(key));
+  proportion= 10*wid/rideDuration;
 
   // Time since the sketch started
   let t = (new Date() - startTime) / 1000;
   stepSize = animate(t, 0, 2, rideDuration, 2.5)
 
 
+
   //Useful Parameters
-  particleStepMaxX = 10+stepSize;
-  thickness = stepSize*5;
-  particleStepMaxY = 3;
+  particleStepMaxX = proportion;
+  thickness = stepSize*wid;
+  particleStepMaxY = proportion;
+    // console.log(thickness)
+
+  //noise
+   xoff = xoff + 0.05;
+   n = noise(xoff) * 100;
 
   if(direction=="up"){
-    particleStepMaxY = 3;
+    particleStepMaxY = proportion;
   }
 
   if(direction=="down"){
-    particleStepMaxY = -3;
+    particleStepMaxY = -proportion;
   }
 
 
 // background(0,10)
-    stroke(100,0,0,10);
-    fill(0,0,0,255-stepSize);
-    strokeWeight(10+thickness+(stepSize*20));
+    stroke('#f8002f11');
+    stroke(250-thickness-n,0,300-n,10);
+    console.log(n)
+    fill(10,10,10,20);
+    // noFill();
+    strokeWeight(thickness);
 
 
 stepSize = (direction === 'up') ? +stepSize : -stepSize;
@@ -74,13 +86,13 @@ Particle.prototype.move = function() {
 
 Particle.prototype.draw = function() {
   this.tail.forEach(pos => {
-    ellipse(this.pos.x, this.pos.y,1+(-stepSize*100));
+    ellipse(this.pos.x, this.pos.y,1+(-stepSize*wid*3));
   });
 }
 
 
 function keyPressed() {
-  if (keyCode === 32) setup() // 32 = Space
+  if (keyCode === 32) init() // 32 = Space
   if (keyCode === 38) direction = 'up' // 38 = ArrowUp
   if (keyCode === 40) direction = 'down' // 40 = ArrowDown
   if (keyCode >= 48 && keyCode <= 57) rideDuration = getRideDuration(toInt(key)) // 48...57 = Digits
@@ -93,6 +105,18 @@ function initParticles() {
   for(var i = 0; i < particleCount; i++) {
   particles.push(new Particle());
   }
+}
+
+function init() {
+  particles = [];
+  for(var i = 0; i < particleCount; i++) {
+    particles.push(new Particle());
+  }
+  startTime = new Date();
+  // background(0);
+  stepSize = (direction === 'up') ? +stepSize : -stepSize;
+  wid = windowHeight/100;
+  console.log(stepSize)
 }
 
 function windowResized() {
