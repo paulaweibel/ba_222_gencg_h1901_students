@@ -10,8 +10,9 @@ function setup() {
   background(0);
   p5.disableFriendlyErrors = true;
   //how many particles
-  particleCount = 200;
+  particleCount = 100;
   initParticles();
+  initParticles2();
   createCanvas(windowWidth, windowHeight);
   startTime = new Date();
   wid = windowHeight/50;
@@ -20,7 +21,7 @@ function setup() {
 }
 
 function draw() {
-  background(0,20);
+  // background(0,);
   let t = (new Date() - startTime) / 1000;
   stepSize = animate(t, 0, 2, rideDuration, 2.5)
 
@@ -35,7 +36,11 @@ function draw() {
 
 
 stepSize = (direction === 'up') ? +stepSize : -stepSize;
-  particles.forEach(p => {
+particles.forEach(p => {
+  p.move();
+  p.draw();
+});
+  particles2.forEach(p => {
     p.move();
     p.draw();
   });
@@ -83,12 +88,7 @@ function initParticles() {
 }
 
 
-function initParticles2() {
-  particles = [];
-  for(var i = 0; i < particleCount; i++) {
-    particles.push(new Particle());
-  }
-}
+
 
 
 function Particle2() {
@@ -97,7 +97,7 @@ function Particle2() {
   this.tailLength = 5;
 }
 
-Particle.prototype.move = function() {
+Particle2.prototype.move = function() {
   if(this.tail.length > this.tailLength) {
     this.tail.splice(0, 1);
   }
@@ -107,10 +107,20 @@ Particle.prototype.move = function() {
   this.pos.y += random(-particleStepMax, particleStepMax);
 }
 
-Particle.prototype.draw = function() {
+Particle2.prototype.draw = function() {
   this.tail.forEach(pos => {
+    stroke(250,100,100,50);
     line(this.pos.x, this.pos.y, pos.x, pos.y);
+    // fill(250,180,0,50);
+    // ellipse(pos.x, pos.y, wid);
   });
+}
+
+function initParticles2() {
+  particles2 = [];
+  for(var i = 0; i < particleCount; i++) {
+    particles2.push(new Particle2());
+  }
 }
 
 

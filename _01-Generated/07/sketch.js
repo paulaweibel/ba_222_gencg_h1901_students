@@ -12,6 +12,7 @@ function setup() {
   //how many particles
   particleCount = 200;
   initParticles();
+  initParticles2();
   createCanvas(windowWidth, windowHeight);
   startTime = new Date();
   wid = windowHeight/50;
@@ -35,7 +36,11 @@ function draw() {
 
 
 stepSize = (direction === 'up') ? +stepSize : -stepSize;
-  particles.forEach(p => {
+particles.forEach(p => {
+  p.move();
+  p.draw();
+});
+  particles2.forEach(p => {
     p.move();
     p.draw();
   });
@@ -83,12 +88,7 @@ function initParticles() {
 }
 
 
-function initParticles2() {
-  particles = [];
-  for(var i = 0; i < particleCount; i++) {
-    particles.push(new Particle());
-  }
-}
+
 
 
 function Particle2() {
@@ -97,7 +97,7 @@ function Particle2() {
   this.tailLength = 5;
 }
 
-Particle.prototype.move = function() {
+Particle2.prototype.move = function() {
   if(this.tail.length > this.tailLength) {
     this.tail.splice(0, 1);
   }
@@ -107,10 +107,18 @@ Particle.prototype.move = function() {
   this.pos.y += random(-particleStepMax, particleStepMax);
 }
 
-Particle.prototype.draw = function() {
+Particle2.prototype.draw = function() {
   this.tail.forEach(pos => {
+    stroke(250,100,100,100);
     line(this.pos.x, this.pos.y, pos.x, pos.y);
   });
+}
+
+function initParticles2() {
+  particles2 = [];
+  for(var i = 0; i < particleCount; i++) {
+    particles2.push(new Particle2());
+  }
 }
 
 
