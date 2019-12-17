@@ -9,11 +9,11 @@ let thickness;
 function setup() {
   background(0);
   p5.disableFriendlyErrors = true; // disables FES
-  particleCount = 100; //PARTIKELANZAHL
+  particleCount = 100; //how many particles
   initParticles(); //start
   createCanvas(windowWidth, windowHeight);
   startTime = new Date();
-  wid = windowHeight / 50;
+  wid = windowHeight / 50; //size of particles
   rideDuration = getRideDuration(toInt(key))
 }
 
@@ -22,9 +22,8 @@ function draw() {
   let t = (new Date() - startTime) / 1000;
   stepSize = animate(t, 0, 2, rideDuration, 2.5)
   //Useful Parameters
-  particleStepMax = 2;
-  thickness = wid + stepSize * wid;
-  console.log(thickness)
+  particleStepMax = 2; //moving of particles
+  thickness = wid + stepSize * wid; //thickness of particles
   //ellipsendarstellung
   background(0);
   fill(0, 50)
@@ -32,8 +31,8 @@ function draw() {
   strokeWeight(thickness);
   stepSize = (direction === 'up') ? +stepSize : -stepSize;
   particles.forEach(p => {
-    p.move();
-    p.draw();
+  p.move();
+  p.draw();
   });
 }
 
