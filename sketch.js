@@ -4,79 +4,142 @@
 // Some of the var might be initialised in gui.js
 var canvas, backgroundGrey, radius;
 var actRandomSeed, count, points, increment;
+// Global var
+let direction;
+let stepSize, rideDuration, startTime, t;
+let objects;
+let particleCount;
+let thickness;
+let n;
+let xoff=0;
 
 function setup() {
-  // Canvas setup
-  canvas = createCanvas(windowWidth, windowHeight);
+  cursor(HAND);
   canvas.parent("p5Container");
   background(200,20,20)
+  background(0);
+//  canvas.parent("p5Container");
+  p5.disableFriendlyErrors = true; // disables FES
+  // rSlider = createSlider(0, 255, 100);
+  // rSlider.position(20, 20);
+  //how many particles
+  particleCount = 50;
+  initParticles();
+  createCanvas(windowWidth, windowHeight);
+  startTime = new Date();
+  console.log("gluehwuermchen version 2")
+
+
 }
 
 function draw() {
-  // background(backgroundGrey, 20);
-  smooth();
 
-  // Create points array
-  let faderX = .1;
-  let t = millis()/1000;
-  // let r = map(mouseY,0,height,10,radius);
-  if (radius>width/1.7 && radius>height/1.7) increment = -increment;
-  else if (radius<20) increment = -increment;
-  radius += increment;
-  let angle = radians(360/count);
+  rideDuration = getRideDuration(toInt(key));
+  //filter(BLUR, 3);
 
-  for (let i=0; i<count; i++){
-    let radiusRand = radius - noise(t, i*faderX)*50;
-    let x = width/2 + cos(angle*i)*radiusRand;
-    let y = height/2 + sin(angle*i)*radiusRand;
-    points[i] = createVector(x,y);
-  }
+  // Time since the sketch started
+  let t = (new Date() - startTime) / 1000;
+  stepSize = animate(t, 0, 2, rideDuration, 2.5)
+ //console.log(`${t}, ${stepSize}, ${rideDuration}`)
 
-  // Draw
-  // stroke(noise(t/10)*255,0,noise(t/1)*100,255);
-  strokeHsluv(noise(t/10)*360,noise(t/20)*50,noise(t)*80);
-  strokeWeight(20);
-  noFill();
-  beginShape();
-  for (let i=0; i<count; i++){
-    // fill(255);
-    // ellipse(points[i].x, points[i].y,2,2);
-    // noFill();
-    curveVertex(points[i].x, points[i].y);
-    if (i==0 || i==count-1) curveVertex(points[i].x, points[i].y);
-  }
-  endShape(CLOSE);
+ //noise
+ xoff = xoff + 0.01;
+n = noise(xoff) * 255;
+
+
+  //Useful Parameters
+  particleStepMax = 10 + stepSize*2;
+  thickness = 5 + stepSize*10;
+//console.log(stepSize)
+//console.log(t)
+
+  //TEXT
+  // noStroke()
+  // fill(250)
+  // text('particleCount: '+ particleCount, 10, 30);
+  // text('particleStepMax: '+ particleStepMax, 10, 50);
+  // text('strokeWeight: '+ thickness, 10, 70);
+
+    //let r = rSlider.value(10);
+     // background(0,10)
+    noFill()
+    stroke(n,0+(stepSize*0),0+(stepSize*200));
+    strokeWeight(thickness);
+
+//console.log("particleCount = "+ particleCount);
+//console.log("rideDuration = "+ rideDuration);
+
+stepSize = (direction === 'up') ? +stepSize : -stepSize;
+
+  particles.forEach(p => {
+    p.move();
+    p.draw();
+  });
 }
+
+
+
+function Particle() {
+  this.pos = createVector(random(windowWidth), random(windowHeight));
+  this.tail = [];
+  this.tailLength = 5;
+}
+
+Particle.prototype.move = function() {
+  if(this.tail.length > this.tailLength) {
+    this.tail.splice(0, 1);
+  }
+  this.tail.push(this.pos.copy());
+
+  this.pos.x += random(-particleStepMax, particleStepMax);
+  this.pos.y += random(-particleStepMax, particleStepMax);
+}
+
+Particle.prototype.draw = function() {
+  this.tail.forEach(pos => {
+    line(this.pos.x, this.pos.y, pos.x, pos.y);
+  });
+}
+
 
 function keyPressed() {
-  if (key == DELETE || key == BACKSPACE) background(360);
-  if (key == 's' || key == 'S') saveThumb(650, 350);
+  if (keyCode === 32) setup() // 32 = Space
+  if (keyCode === 38) direction = 'up' // 38 = ArrowUp
+  if (keyCode === 40) direction = 'down' // 40 = ArrowDown
+  if (keyCode >= 48 && keyCode <= 57) rideDuration = getRideDuration(toInt(key)) // 48...57 = Digits
+  //
+  if (key === 's' || key === 'S') saveThumb(650, 350);
+//  console.log(getRideDuration(toInt(key)))
 }
 
-// Color functions
-function fillHsluv(h, s, l) {
-  var rgb = hsluv.hsluvToRgb([h, s, l]);
-  fill(rgb[0] * 255, rgb[1] * 255, rgb[2] * 255);
+function initParticles() {
+  particles = [];
+  for(var i = 0; i < particleCount; i++) {
+    particles.push(new Particle());
+  }
 }
 
-function strokeHsluv(h, s, l) {
-  var rgb = hsluv.hsluvToRgb([h, s, l]);
-  stroke(rgb[0] * 255, rgb[1] * 255, rgb[2] * 255);
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
 }
 
-function colorHsluv(h, s, l) {
-  var rgb = hsluv.hsluvToRgb([h, s, l]);
-  return color(rgb[0] * 255, rgb[1] * 255, rgb[2] * 255);
+function mouseClicked() {
+  //initParticles();
+  background(0);
 }
 
-// Tools
+// Thumb
+function saveThumb(w, h) {
+  let img = get(width / 2 - w / 2, height / 2 - h / 2, w, h);
+  save(img, 'thumb.jpg');
+}
 
 // resize canvas when the window is resized
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight, false);
 }
 
-//  conversion
+// Int conversion
 function toInt(value) {
   return ~~value;
 }
@@ -84,10 +147,4 @@ function toInt(value) {
 // Timestamp
 function timestamp() {
   return Date.now();
-}
-
-// Thumb
-function saveThumb(w, h) {
-  let img = get(width / 2 - w / 2, height / 2 - h / 2, w, h);
-  save(img, 'thumb.jpg');
 }
