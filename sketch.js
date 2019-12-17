@@ -1,71 +1,37 @@
-// Noise generated circle
-
-// Global var
-// Some of the var might be initialised in gui.js
-var canvas, backgroundGrey, radius;
-var actRandomSeed, count, points, increment;
 // Global var
 let direction;
 let stepSize, rideDuration, startTime, t;
 let objects;
 let particleCount;
 let thickness;
-let n;
-let xoff=0;
 
 function setup() {
-  cursor(HAND);
   background(0);
-//  canvas.parent("p5Container");
   p5.disableFriendlyErrors = true; // disables FES
-  // rSlider = createSlider(0, 255, 100);
-  // rSlider.position(20, 20);
-  //how many particles
-  particleCount = 50;
-  initParticles();
+  particleCount = 100; //PARTIKELANZAHL
+  initParticles(); //start
   createCanvas(windowWidth, windowHeight);
   startTime = new Date();
-  console.log("gluehwuermchen version 2")
-
-
+  console.log("headertest")
 }
 
 function draw() {
-
-  rideDuration = getRideDuration(toInt(key));
-  //filter(BLUR, 3);
+  background(0,20);
+  console.log("bodytest")
+  rideDuration = getRideDuration(toInt(key));;
 
   // Time since the sketch started
   let t = (new Date() - startTime) / 1000;
   stepSize = animate(t, 0, 2, rideDuration, 2.5)
- //console.log(`${t}, ${stepSize}, ${rideDuration}`)
-
- //noise
- xoff = xoff + 0.01;
-n = noise(xoff) * 255;
-
 
   //Useful Parameters
-  particleStepMax = 10 + stepSize*2;
-  thickness = 5 + stepSize*10;
-//console.log(stepSize)
-//console.log(t)
+  particleStepMax = 2 + stepSize*2;
+  thickness = 5 + stepSize*50;
 
-  //TEXT
-  // noStroke()
-  // fill(250)
-  // text('particleCount: '+ particleCount, 10, 30);
-  // text('particleStepMax: '+ particleStepMax, 10, 50);
-  // text('strokeWeight: '+ thickness, 10, 70);
-
-    //let r = rSlider.value(10);
-     // background(0,10)
-    noFill()
-    stroke(n,0+(stepSize*0),0+(stepSize*200));
-    strokeWeight(thickness);
-
-//console.log("particleCount = "+ particleCount);
-//console.log("rideDuration = "+ rideDuration);
+  //ellipsendarstellung
+  noFill()
+  stroke(250+(stepSize*200),180+(stepSize*200),0,50);
+  strokeWeight(thickness);
 
 stepSize = (direction === 'up') ? +stepSize : -stepSize;
 
@@ -80,7 +46,7 @@ stepSize = (direction === 'up') ? +stepSize : -stepSize;
 function Particle() {
   this.pos = createVector(random(windowWidth), random(windowHeight));
   this.tail = [];
-  this.tailLength = 5;
+  this.tailLength = 1;
 }
 
 Particle.prototype.move = function() {
@@ -95,7 +61,7 @@ Particle.prototype.move = function() {
 
 Particle.prototype.draw = function() {
   this.tail.forEach(pos => {
-    line(this.pos.x, this.pos.y, pos.x, pos.y);
+    ellipse(this.pos.x, this.pos.y, pos.x, pos.y);
   });
 }
 
@@ -105,9 +71,7 @@ function keyPressed() {
   if (keyCode === 38) direction = 'up' // 38 = ArrowUp
   if (keyCode === 40) direction = 'down' // 40 = ArrowDown
   if (keyCode >= 48 && keyCode <= 57) rideDuration = getRideDuration(toInt(key)) // 48...57 = Digits
-  //
   if (key === 's' || key === 'S') saveThumb(650, 350);
-//  console.log(getRideDuration(toInt(key)))
 }
 
 function initParticles() {
@@ -119,11 +83,6 @@ function initParticles() {
 
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
-}
-
-function mouseClicked() {
-  //initParticles();
-  background(0);
 }
 
 // Thumb
