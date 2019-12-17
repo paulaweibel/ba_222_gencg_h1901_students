@@ -1,6 +1,6 @@
 ---
 layout: sketch
-title: "gluehwuermchen"
+title: "glühwürmchen"
 category: "Experiment"
 thumb_name: "thumb.jpg"
 includes:

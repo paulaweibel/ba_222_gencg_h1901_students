@@ -1,6 +1,6 @@
 ---
 layout: sketch
-title: "00_03 gluehwuermchen"
+title: "pinki gradient"
 category: "Experiment"
 thumb_name: "thumb.jpg"
 includes:
