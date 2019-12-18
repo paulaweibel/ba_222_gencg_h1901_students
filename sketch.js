@@ -15,6 +15,9 @@ let xoff=0;
 
 function setup() {
   cursor(HAND);
+  canvas = createCanvas(windowWidth, windowHeight);
+  canvas.parent("p5Container");
+  background(200,20,20)
   background(0);
 //  canvas.parent("p5Container");
   p5.disableFriendlyErrors = true; // disables FES
