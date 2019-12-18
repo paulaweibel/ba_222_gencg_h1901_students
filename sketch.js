@@ -1,60 +1,71 @@
-// Based on the code P_2_0_02.pde from
-// Generative Gestaltung, ISBN: 978-3-87439-759-9
-
 // Global var
-var b = 255, p = false;
-var z = 0;
-let xoff = 0.0;
-let wid; // size of outer ellipse
-let wid2; // size of inner ellipse
+let direction;
+let stepSize, rideDuration, startTime, t;
+let objects;
+let particleCount;
+let thickness;
 
 function setup() {
-  // Canvas setup
-  canvas = createCanvas(windowWidth, windowHeight);
-  var density = displayDensity();
-  pixelDensity(density);
-  smooth();
-   // Canvas full page
-  createCanvas(windowWidth, windowHeight);
-  // Default screen density (for retina)
-  pixelDensity(density);
-  // Var init
-  position = createVector(0,0);
-  velocity = createVector(2, 4);
-  wid = windowHeight; // size of outer ellipse
-  wid2 = windowHeight/1.5;  // size of inner ellipse
-  position.x=width/2;
-  position.y=height/2;
   background(0);
+  p5.disableFriendlyErrors = true; // disables FES
+  particleCount = 100; //PARTIKELANZAHL
+  initParticles(); //start
+  createCanvas(windowWidth, windowHeight);
+  startTime = new Date();
+  console.log("headertest")
 }
 
 function draw() {
-  smooth();
-  noFill();
-  stroke(0.1)
-  position.add(velocity);
+  background(0,20);
+  console.log("bodytest")
+  rideDuration = getRideDuration(toInt(key));;
 
-  //noise (for the changing size of ellipse)
-  xoff = xoff + 0.01;
-  let n = noise(xoff) * 1000;
+  // Time since the sketch started
+  let t = (new Date() - startTime) / 1000;
+  stepSize = animate(t, 0, 2, rideDuration, 2.5)
 
-  //  Check for bouncing
-  if ((position.x > width-(width/10)) || (position.x < (width/10))) {
-    velocity.x = velocity.x * -1;
-  }
-  if ((position.y > height-(height/10)) || (position.y < (height/10))) {
-    velocity.y = velocity.y * -1;
-  }
+  //Useful Parameters
+  particleStepMax = 2 + stepSize*2;
+  thickness = 5 + stepSize*50;
 
-// size, stroke and colour of ellipses:
-  strokeWeight(5);
-  stroke(0,0,0,200)
-  ellipse(position.x,position.y,wid-n,wid-n);
-  strokeWeight(1);
-  stroke(300-(n/3),300-(n/2),300-(n/5))
-  ellipse(position.x,position.y,wid2-n,wid2-n);
+  //ellipsendarstellung
+  noFill()
+  stroke(250+(stepSize*200),180+(stepSize*200),0,50);
+  strokeWeight(thickness);
 
+stepSize = (direction === 'up') ? +stepSize : -stepSize;
+
+  particles.forEach(p => {
+    p.move();
+    p.draw();
+  });
 }
+
+
+
+function Particle() {
+  this.pos = createVector(random(windowWidth), random(windowHeight));
+  this.tail = [];
+  this.tailLength = 1;
+}
+
+Particle.prototype.move = function() {
+  if(this.tail.length > this.tailLength) {
+    this.tail.splice(0, 1);
+  }
+  this.tail.push(this.pos.copy());
+
+  this.pos.x += random(-particleStepMax, particleStepMax);
+  this.pos.y += random(-particleStepMax, particleStepMax);
+}
+
+Particle.prototype.draw = function() {
+  this.tail.forEach(pos => {
+    ellipse(this.pos.x, this.pos.y, pos.x, pos.y);
+  });
+}
+
+
 function keyPressed() {
   if (keyCode === 32) setup() // 32 = Space
   if (keyCode === 38) direction = 'up' // 38 = ArrowUp
@@ -63,18 +74,34 @@ function keyPressed() {
   if (key === 's' || key === 'S') saveThumb(650, 350);
 }
 
+function initParticles() {
+  particles = [];
+  for(var i = 0; i < particleCount; i++) {
+    particles.push(new Particle());
+  }
+}
+
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+}
+
 // Thumb
 function saveThumb(w, h) {
   let img = get(width / 2 - w / 2, height / 2 - h / 2, w, h);
   save(img, 'thumb.jpg');
 }
 
+// resize canvas when the window is resized
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight, false);
+}
+
+// Int conversion
+function toInt(value) {
+  return ~~value;
+}
+
 // Timestamp
 function timestamp() {
   return Date.now();
-}
-
-function windowResized() {
-  resizeCanvas(windowWidth, windowHeight);
-  background(0);
 }
