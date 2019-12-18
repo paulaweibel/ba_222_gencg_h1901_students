@@ -27,7 +27,6 @@ function draw() {
   //Useful Parameters
   particleStepMax = wid + stepSize*2;
   thickness = wid + stepSize*wid*2;
-  console.log(wid)
 
   noFill()
   stroke(250+(stepSize*200),180+(stepSize*200),0,50);

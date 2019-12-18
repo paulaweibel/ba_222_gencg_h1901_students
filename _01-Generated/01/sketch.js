@@ -25,7 +25,6 @@ function draw() {
   //Useful Parameters
   particleStepMax = 2;
   thickness = wid + stepSize*wid;
-  console.log(thickness)
   //ellipsendarstellung
   background(0);
   fill(0,50)

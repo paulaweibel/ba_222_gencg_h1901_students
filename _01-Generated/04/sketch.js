@@ -42,7 +42,6 @@ function draw() {
   particleStepMaxX = proportion; //horizontal steps of circles
   thickness = stepSize*wid; //stroke thickness
   particleStepMaxY = proportion; //vertical steps of circles
-    // console.log(thickness)
 
   //noise
    xoff = xoff + 0.05;
@@ -60,7 +59,6 @@ function draw() {
 // background(0,10)
     stroke('#f8002f11');
     stroke(250-thickness-n,0,300-n,10);
-    console.log(n)
     fill(10,10,10,20);
     strokeWeight(thickness);
 
@@ -104,7 +102,6 @@ function keyPressed() {
   if (keyCode === 40) direction = 'down' // 40 = ArrowDown
   if (keyCode >= 48 && keyCode <= 57) rideDuration = getRideDuration(toInt(key)) // 48...57 = Digits
   if (key === 's' || key === 'S') saveThumb(650, 350);
-//  console.log(getRideDuration(toInt(key)))
 }
 
 function initParticles() {
@@ -123,7 +120,6 @@ function init() {
   background(0);
   stepSize = (direction === 'up') ? +stepSize : -stepSize;
   wid = windowHeight/100;
-  console.log(stepSize)
 }
 
 function windowResized() {

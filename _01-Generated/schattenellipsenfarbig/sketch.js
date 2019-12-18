@@ -5,7 +5,7 @@ let objects;
 let particleCount;
 let thickness;
 let n;
-let xoff=0;
+let xoff = 0;
 
 function setup() {
   cursor(HAND);
@@ -30,25 +30,24 @@ function draw() {
   // Time since the sketch started
   let t = (new Date() - startTime) / 1000;
   stepSize = animate(t, 0, 2, rideDuration, 2.5)
- //console.log(`${t}, ${stepSize}, ${rideDuration}`)
 
- //noise
- xoff = xoff + 0.01;
-n = noise(xoff) * 255;
+  //noise
+  xoff = xoff + 0.01;
+  n = noise(xoff) * 255;
 
 
   //Useful Parameters
-  particleStepMax = 5 + stepSize*10;
-  thickness = 5 + stepSize*5;
+  particleStepMax = 5 + stepSize * 10;
+  thickness = 5 + stepSize * 5;
 
 
-     // background(0,10)
-    stroke(0,20)
-    fill(n,0+(stepSize*0),0+(stepSize*200));
-    strokeWeight(thickness+(stepSize*20));
+  // background(0,10)
+  stroke(0, 20)
+  fill(n, 0 + (stepSize * 0), 0 + (stepSize * 200));
+  strokeWeight(thickness + (stepSize * 20));
 
 
-stepSize = (direction === 'up') ? +stepSize : -stepSize;
+  stepSize = (direction === 'up') ? +stepSize : -stepSize;
 
   particles.forEach(p => {
     p.move();
@@ -65,7 +64,7 @@ function Particle() {
 }
 
 Particle.prototype.move = function() {
-  if(this.tail.length > this.tailLength) {
+  if (this.tail.length > this.tailLength) {
     this.tail.splice(0, 1);
   }
   this.tail.push(this.pos.copy());
@@ -76,7 +75,7 @@ Particle.prototype.move = function() {
 
 Particle.prototype.draw = function() {
   this.tail.forEach(pos => {
-    ellipse(this.pos.x, this.pos.y,random(80,100));
+    ellipse(this.pos.x, this.pos.y, random(80, 100));
   });
 }
 
@@ -88,12 +87,11 @@ function keyPressed() {
   if (keyCode >= 48 && keyCode <= 57) rideDuration = getRideDuration(toInt(key)) // 48...57 = Digits
   //
   if (key === 's' || key === 'S') saveThumb(650, 350);
-//  console.log(getRideDuration(toInt(key)))
 }
 
 function initParticles() {
   particles = [];
-  for(var i = 0; i < particleCount; i++) {
+  for (var i = 0; i < particleCount; i++) {
     particles.push(new Particle());
   }
 }

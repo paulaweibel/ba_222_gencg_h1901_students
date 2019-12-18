@@ -24,7 +24,7 @@ function setup() {
 
 function draw() {
 //background(0)
-  rideDuration = getRideDuration(toInt(key))
+  rideDuration = getRideDuration(toInt(key));
   x=0;
 
   let t = (new Date() - startTime) / 1000;
@@ -47,13 +47,10 @@ n = noise(xoff) * 255;
 
     stroke(250-(stepSize*20),180-(stepSize*50),0,20)
     strokeWeight(2+(stepSize*7))
-    console.log(x)
 
     // stroke(n,0+(stepSize*0),0+(stepSize*200));
     // strokeWeight(thickness+(stepSize*20));
 
-//console.log("particleCount = "+ particleCount);
-//console.log("rideDuration = "+ rideDuration);
 
 stepSize = (direction === 'up') ? +stepSize : -stepSize;
 
@@ -93,9 +90,7 @@ function keyPressed() {
   if (keyCode === 38) direction = 'up' // 38 = ArrowUp
   if (keyCode === 40) direction = 'down' // 40 = ArrowDown
   if (keyCode >= 48 && keyCode <= 57) rideDuration = getRideDuration(toInt(key)) // 48...57 = Digits
-  //
   if (key === 's' || key === 'S') saveThumb(650, 350);
-//  console.log(getRideDuration(toInt(key)))
 }
 
 function initParticles() {
