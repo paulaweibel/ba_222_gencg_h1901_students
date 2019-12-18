@@ -11,6 +11,7 @@ let wid2; // size of inner ellipse
 function setup() {
   // Canvas setup
   canvas = createCanvas(windowWidth, windowHeight);
+canvas.parent("p5Container");
   var density = displayDensity();
   pixelDensity(density);
   smooth();
