@@ -1,5 +1,5 @@
 ---
 layout: front
-title: "sketches"
-subtitle: "Paula"
+title: "gencg sketches"
+subtitle: "Paula Weibel"
 ---
