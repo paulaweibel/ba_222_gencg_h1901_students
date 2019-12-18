@@ -1,6 +1,6 @@
 ---
 layout: sketch
-title: "00_03 gluehwuermchen"
+title: "reacting to direction, floor and space"
 category: "Experiment"
 thumb_name: "thumb.jpg"
 includes:

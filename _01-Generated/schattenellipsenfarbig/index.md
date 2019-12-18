@@ -1,6 +1,6 @@
 ---
 layout: sketch
-title: "00_02 gluehwuermchen"
+title: "stapel"
 category: "Experiment"
 thumb_name: "thumb.jpg"
 includes:

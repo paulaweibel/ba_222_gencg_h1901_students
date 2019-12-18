@@ -1,6 +1,6 @@
 ---
 layout: sketch
-title: "01_04 Ellipsen" 
+title: "raupe 2" 
 category: "Experiment"
 thumb_name: "thumb.jpg"
 includes:

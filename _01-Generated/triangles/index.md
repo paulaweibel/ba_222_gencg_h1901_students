@@ -1,6 +1,6 @@
 ---
 layout: sketch
-title: "Experiamo dreiecke" 
+title: "line chaos" 
 category: "Experiment"
 thumb_name: "thumb.jpg"
 includes:
