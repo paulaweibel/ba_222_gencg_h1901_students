@@ -16,3 +16,6 @@ subtitle: I.BA_222_GENCG.H1901 - Winter 2019
 collections:
   01-Generated:
     output: true
+
+  02-Results:
+    output: true
