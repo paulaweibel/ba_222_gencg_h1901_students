@@ -25,8 +25,7 @@ function setup() {
   wid2 = windowHeight/1.5;  // size of inner ellipse
   position.x=width/2;
   position.y=height/2;
-  background(100);
-  console.log("function setup works")
+  background(0);
 }
 
 function draw() {
