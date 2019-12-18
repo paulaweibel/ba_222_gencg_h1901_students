@@ -49,7 +49,13 @@ function draw() {
   radius += increment;
   let angle = radians(360/count);
 
+  for (let i=0; i<count; i++){
+    let radiusRand = radius - noise(t, i*faderX)*50;
+    let x = width/2 + cos(angle*i)*radiusRand;
+    let y = height/2 + sin(angle*i)*radiusRand;
+    points[i] = createVector(x,y);
 
+  }
 
   // Draw
   // stroke(noise(t/10)*255,0,noise(t/1)*100,255);
