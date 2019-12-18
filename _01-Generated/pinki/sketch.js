@@ -4,33 +4,50 @@ let stepSize, rideDuration, startTime, t;
 let objects;
 let particleCount;
 let thickness;
-
+let n;
+let xoff=0;
 
 function setup() {
+  cursor(HAND);
   background(0);
   p5.disableFriendlyErrors = true; // disables FES
-  particleCount = 100; //PARTIKELANZAHL
-  initParticles(); //start
+
+  //how many particles
+  particleCount = 20;
+  initParticles();
   createCanvas(windowWidth, windowHeight);
   startTime = new Date();
-  wid = windowHeight / 50;
-  rideDuration = getRideDuration(toInt(key))
+  console.log("gluehwuermchen version 2")
+
+
 }
 
 function draw() {
+  //filter(BLUR, 3);
+
   // Time since the sketch started
   let t = (new Date() - startTime) / 1000;
   stepSize = animate(t, 0, 2, rideDuration, 2.5)
+ //console.log(`${t}, ${stepSize}, ${rideDuration}`)
+
+ //noise
+ xoff = xoff + 0.01;
+n = noise(xoff) * 255;
+
+
   //Useful Parameters
-  particleStepMax = 2;
-  thickness = wid + stepSize * wid;
-  console.log(thickness)
-  //ellipsendarstellung
-  background(0);
-  fill(0, 50)
-  stroke(250 + (stepSize * 200), 180 + (stepSize * 200), 0, 50);
-  strokeWeight(thickness);
-  stepSize = (direction === 'up') ? +stepSize : -stepSize;
+  particleStepMax = 10 + stepSize*20;
+  thickness = 5 + stepSize*10;
+
+
+     // background(0,10)
+    noFill()
+    stroke(n,0+(stepSize*0),0+(stepSize*200));
+    strokeWeight(thickness+(stepSize*20));
+
+
+stepSize = (direction === 'up') ? +stepSize : -stepSize;
+
   particles.forEach(p => {
     p.move();
     p.draw();
@@ -42,41 +59,46 @@ function draw() {
 function Particle() {
   this.pos = createVector(random(windowWidth), random(windowHeight));
   this.tail = [];
-  this.tailLength = 1;
+  this.tailLength = 5;
 }
+
 Particle.prototype.move = function() {
-  if (this.tail.length > this.tailLength) {
+  if(this.tail.length > this.tailLength) {
     this.tail.splice(0, 1);
   }
   this.tail.push(this.pos.copy());
+
   this.pos.x += random(-particleStepMax, particleStepMax);
   this.pos.y += random(-particleStepMax, particleStepMax);
 }
+
 Particle.prototype.draw = function() {
   this.tail.forEach(pos => {
-    ellipse(this.pos.x, this.pos.y, windowHeight / 6);
+    line(this.pos.x, this.pos.y, pos.x, pos.y);
   });
 }
+
 
 function keyPressed() {
   if (keyCode === 32) init() // 32 = Space
   if (keyCode === 38) direction = 'up' // 38 = ArrowUp
   if (keyCode === 40) direction = 'down' // 40 = ArrowDown
-  if (keyCode >= 48 && keyCode <= 57) rideDuration = getRideDuration(toInt(key)) // 48...57 = Digits
+  if (keyCode >= 48 && keyCode <= 57) rideDuration = getRideDuration(toInt(key)); // 48...57 = Digits
+  //
   if (key === 's' || key === 'S') saveThumb(650, 350);
+//  console.log(getRideDuration(toInt(key)))
 }
 
 function initParticles() {
   particles = [];
-  for (var i = 0; i < particleCount; i++) {
+  for(var i = 0; i < particleCount; i++) {
     particles.push(new Particle());
-    startTime = new Date();
   }
 }
 
 function init() {
   particles = [];
-  for (var i = 0; i < particleCount; i++) {
+  for(var i = 0; i < particleCount; i++) {
     particles.push(new Particle());
   }
   startTime = new Date();
@@ -85,6 +107,11 @@ function init() {
 
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
+}
+
+function mouseClicked() {
+  //initParticles();
+  background(0);
 }
 
 // Thumb

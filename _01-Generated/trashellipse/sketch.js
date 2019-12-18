@@ -24,50 +24,56 @@ function setup() {
   // Var init
   background(0);
   position = createVector(0, 0);
-  velocity = createVector(2, 4);
+  velocity = createVector(0.5, 1);
   smooth();
-  position.x=width/2;
-  position.y=height/2;
   // Init Var
 }
 
 function draw() {
-  // background(0,50)
+  background(0,50)
   smooth();
   noFill();
   stroke(0.1)
-  // position.x=width/2;
-  // position.y=height/2;
 
+  //ellipse(width/2+z,height/2-z,20)
+
+  if(z<height/2){
+  z = z + 10;}
+  if(z>height/2){
+    z=z-2}
+
+  noStroke();
+  fill(0);
+ // rect(0,0,width,height);
+
+  // Add the current speed to the location.
   position.add(velocity);
 
-
-
-  //noise
-  xoff = xoff + 0.05;
-  let n = noise(xoff) * width/10;
-  //line(n, 0, n, height);
-
-  //  Check for bouncing
-  if ((position.x > width-(width/10)) || (position.x < (width/10))) {
+    // Check for bouncing
+  if ((position.x > width) || (position.x < 0)) {
     velocity.x = velocity.x * -1;
   }
-  if ((position.y > height-(height/10)) || (position.y < (height/10))) {
+  if ((position.y > height) || (position.y < 0)) {
     velocity.y = velocity.y * -1;
   }
+
+  //noise
+  xoff = xoff + 0.01;
+  let n = noise(xoff) * width;
+  //line(n, 0, n, height);
+
   // Display at x,y location
   strokeWeight(1+(n/70));
   stroke(0+n,50)
+  fill(0,1)
 
-  strokeWeight(10);
-  stroke(20,200)
-  ellipse(position.x,position.y,100-n,100-n);
-  fill(20,0,0);
-  noFill()
-  strokeWeight(2);
-  stroke(250)
+  ellipse(position.x,position.y,100-n,100-n);  ellipse(position.x/1.6,position.y,100-n,100-n);
+  ellipse(position.x/10,position.y,100-n,100-n);
+  noFill();
+  strokeWeight(1);
+  stroke(0)
   //rect(position.x-(120-n)/2,position.y-(120-n)/2,120-n,120-n);
-  ellipse(position.x,position.y,102-n,102-n);
+  ellipse(position.x,position.y,150-n,150-n);
 
 
 }
