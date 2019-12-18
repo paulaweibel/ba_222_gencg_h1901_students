@@ -13,7 +13,7 @@ function setup() {
   initParticles(); //start
   createCanvas(windowWidth, windowHeight);
   startTime = new Date();
-  wid = windowHeight / 50;
+  wid = windowHeight/50;
   rideDuration = getRideDuration(toInt(key))
 }
 
@@ -21,20 +21,24 @@ function draw() {
   // Time since the sketch started
   let t = (new Date() - startTime) / 1000;
   stepSize = animate(t, 0, 2, rideDuration, 2.5)
+
   //Useful Parameters
   particleStepMax = 2;
-  thickness = wid + stepSize * wid;
+  thickness = wid + stepSize*wid;
   console.log(thickness)
   //ellipsendarstellung
   background(0);
-  fill(0, 50)
-  stroke(250 + (stepSize * 200), 180 + (stepSize * 200), 0, 50);
+  fill(0,50)
+  stroke(250+(stepSize*200),180+(stepSize*200),0,50);
   strokeWeight(thickness);
+
   stepSize = (direction === 'up') ? +stepSize : -stepSize;
+
   particles.forEach(p => {
     p.move();
     p.draw();
   });
+
 }
 
 
@@ -44,22 +48,26 @@ function Particle() {
   this.tail = [];
   this.tailLength = 1;
 }
+
 Particle.prototype.move = function() {
-  if (this.tail.length > this.tailLength) {
+  if(this.tail.length > this.tailLength) {
     this.tail.splice(0, 1);
   }
   this.tail.push(this.pos.copy());
+
   this.pos.x += random(-particleStepMax, particleStepMax);
   this.pos.y += random(-particleStepMax, particleStepMax);
 }
+
 Particle.prototype.draw = function() {
   this.tail.forEach(pos => {
-    ellipse(this.pos.x, this.pos.y, windowHeight / 6);
+    ellipse(this.pos.x, this.pos.y, windowHeight/6);
   });
 }
 
+
 function keyPressed() {
-  if (keyCode === 32) init() // 32 = Space
+  if (keyCode === 32)  init()// 32 = Space
   if (keyCode === 38) direction = 'up' // 38 = ArrowUp
   if (keyCode === 40) direction = 'down' // 40 = ArrowDown
   if (keyCode >= 48 && keyCode <= 57) rideDuration = getRideDuration(toInt(key)) // 48...57 = Digits
@@ -68,15 +76,16 @@ function keyPressed() {
 
 function initParticles() {
   particles = [];
-  for (var i = 0; i < particleCount; i++) {
+  for(var i = 0; i < particleCount; i++) {
     particles.push(new Particle());
     startTime = new Date();
   }
 }
 
+
 function init() {
   particles = [];
-  for (var i = 0; i < particleCount; i++) {
+  for(var i = 0; i < particleCount; i++) {
     particles.push(new Particle());
   }
   startTime = new Date();
