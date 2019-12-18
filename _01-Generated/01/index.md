@@ -1,6 +1,6 @@
 ---
 layout: sketch
-title: "simple yellow circles"
+title: "circuilatorium"
 category: "Experiment"
 thumb_name: "thumb.jpg"
 includes:
