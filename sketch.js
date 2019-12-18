@@ -49,22 +49,28 @@ function draw() {
   radius += increment;
   let angle = radians(360/count);
 
+  for (let i=0; i<count; i++){
+    let radiusRand = radius - noise(t, i*faderX)*50;
+    let x = width/2 + cos(angle*i)*radiusRand;
+    let y = height/2 + sin(angle*i)*radiusRand;
+    points[i] = createVector(x,y);
 
+  }
 
   // Draw
   // stroke(noise(t/10)*255,0,noise(t/1)*100,255);
   strokeHsluv(noise(t/10)*360,noise(t/20)*50,noise(t)*80);
   strokeWeight(20);
   noFill();
-  beginShape();
-  for (let i=0; i<count; i++){
-    // fill(255);
-    // ellipse(points[i].x, points[i].y,2,2);
-    // noFill();
-    curveVertex(points[i].x, points[i].y);
-    if (i==0 || i==count-1) curveVertex(points[i].x, points[i].y);
-  }
-  endShape(CLOSE);
+  // beginShape();
+  // for (let i=0; i<count; i++){
+  //   // fill(255);
+  //   // ellipse(points[i].x, points[i].y,2,2);
+  //   // noFill();
+  //   curveVertex(points[i].x, points[i].y);
+  //   if (i==0 || i==count-1) curveVertex(points[i].x, points[i].y);
+  // }
+  // endShape(CLOSE);
   smooth();
   noFill();
   stroke(0.1)
